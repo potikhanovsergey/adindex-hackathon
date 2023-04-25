@@ -54,7 +54,7 @@ const theme: MantineThemeOverride = {
       "#6be9a6",
       "#56e699",
       "#41e38d",
-      "#2CE080",
+      "#2CE080", // 5
       "#28ca73",
       "#1f9d5a",
       "#167040",
@@ -68,10 +68,23 @@ const theme: MantineThemeOverride = {
     },
   }),
   components: {
+    Container: {
+      defaultProps: {
+        size: "xl",
+      },
+    },
     Modal: {
+      defaultProps: {
+        size: "50%",
+        centered: true,
+      },
       styles: (theme) => ({
         content: {
           border: "0 !important",
+        },
+        title: {
+          fontWeight: 700,
+          fontSize: theme.fontSizes.lg,
         },
       }),
     },
@@ -110,6 +123,11 @@ const theme: MantineThemeOverride = {
       },
     },
     TextInput: {
+      defaultProps: {
+        size: "xs",
+      },
+    },
+    NumberInput: {
       defaultProps: {
         size: "xs",
       },
