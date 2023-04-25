@@ -7,7 +7,7 @@ import {
 } from "@mantine/core"
 import { Rubik } from "next/font/google"
 
-const font = Rubik({
+export const font = Rubik({
   variable: "--bubble-font",
   weight: ["400", "600", "700"],
   subsets: ["latin"],

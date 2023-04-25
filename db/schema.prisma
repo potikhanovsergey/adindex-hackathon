@@ -29,9 +29,16 @@ model RecruiterRequest {
   company Company @relation(fields: [companyId], references: [id])
 }
 
+enum CompanyStatus {
+  verified
+  unverified
+}
+
 model Company {
   id   Int    @id @default(autoincrement())
-  name String // Название компании
+  name String @unique // Название компании
+
+  status CompanyStatus
 
   websiteUrl  String?
   email       String?

@@ -11,7 +11,7 @@ const Logo: FC<BoxProps> = (props) => {
       xmlns="http://www.w3.org/2000/svg"
       {...props}
     >
-      <g clip-path="url(#clip0_133_3809)">
+      <g clipPath="url(#clip0_133_3809)">
         <path d="M217.24 231.66H11.24V437.66H217.24V231.66Z" fill="#D0363D" />
         <path d="M11.77 44.38V0H229.44V44.38H145.39V215.64H95.82V44.38H11.77Z" fill="#1B1B1B" />
         <path
