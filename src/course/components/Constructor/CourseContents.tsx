@@ -102,7 +102,7 @@ const CourseContents: FC<CoursePageProps> = ({ course }) => {
                   )}
                 </Stack>
 
-                <AddCourseStepButton section={section} mt="md" variant="light" color="gray" />
+                <AddCourseStepButton section={section} mt="md" variant="outline" color="gray" />
               </Accordion.Panel>
             </Accordion.Item>
           ))}

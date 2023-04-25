@@ -24,7 +24,7 @@ const ManageUsersTable = ({ users }: { users: User[] }) => {
         setChosenUser(user)
         open()
       }}
-      sx={{ cursor: "pointer", "&:hover": { background: theme.colors.dark[7] } }}
+      sx={{ cursor: "pointer", "&:hover": { background: theme.colors.gray[1] } }}
     >
       <td>{user.firstName}</td>
       <td>{user.lastName}</td>

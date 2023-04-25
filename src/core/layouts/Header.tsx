@@ -26,7 +26,7 @@ const HeaderProfile = () => {
     : null
 
   return user ? (
-    <Menu>
+    <Menu withinPortal>
       <Menu.Target>
         <Avatar alt="Avatar" sx={{ cursor: "pointer" }} />
       </Menu.Target>
@@ -44,6 +44,15 @@ const HeaderProfile = () => {
           <>
             <Menu.Item component={Link} href={Routes.ManageUsersPage()}>
               Управление пользователями
+            </Menu.Item>
+            <Menu.Divider />
+          </>
+        )}
+
+        {user.role === "RECRUITER" && (
+          <>
+            <Menu.Item component={Link} href={Routes.ManageUsersPage()}>
+              Профиль компании
             </Menu.Item>
             <Menu.Divider />
           </>
@@ -75,7 +84,9 @@ const Header = () => {
       <Container h="100%">
         <Group position="apart" h="100%" noWrap>
           <Group noWrap spacing="xl">
-            <Logo w={50} />
+            <Link href={Routes.Home()}>
+              <Logo w={50} />
+            </Link>
             <Navigation />
           </Group>
           <Suspense>
