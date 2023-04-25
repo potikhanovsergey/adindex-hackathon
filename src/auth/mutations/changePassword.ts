@@ -1,22 +1,23 @@
-import { NotFoundError, AuthenticationError } from 'blitz'
-import { resolver } from '@blitzjs/rpc'
-import { SecurePassword } from '@blitzjs/auth'
-import db from 'db'
-import { authenticateUser } from './login'
-import { ChangePassword } from '../validations'
+import { NotFoundError, AuthenticationError } from "blitz"
+import { resolver } from "@blitzjs/rpc"
+import { SecurePassword } from "@blitzjs/auth/secure-password"
+import db from "db"
+import { authenticateUser } from "./login"
 
 export default resolver.pipe(
-  resolver.zod(ChangePassword),
   resolver.authorize(),
-  async ({ currentPassword, newPassword }, ctx) => {
+  async (
+    { currentPassword, newPassword }: { currentPassword: string; newPassword: string },
+    ctx
+  ) => {
     const user = await db.user.findFirst({ where: { id: ctx.session.userId } })
     if (!user) throw new NotFoundError()
 
     try {
-      await authenticateUser(user.email, currentPassword)
+      await authenticateUser({ email: user.email, password: currentPassword })
     } catch (error) {
       if (error instanceof AuthenticationError) {
-        throw new Error('Invalid Password')
+        throw new Error("Invalid Password")
       }
       throw error
     }
@@ -28,5 +29,5 @@ export default resolver.pipe(
     })
 
     return true
-  },
+  }
 )
