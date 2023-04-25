@@ -15,6 +15,7 @@ import logout from "src/auth/mutations/logout"
 import { Suspense } from "react"
 import { useCurrentUser } from "src/users/hooks/useCurrentUser"
 import Navigation from "./Navigation"
+import Logo from "./Logo"
 
 const HeaderProfile = () => {
   const user = useCurrentUser()
@@ -57,7 +58,7 @@ const HeaderProfile = () => {
       </Menu.Dropdown>
     </Menu>
   ) : (
-    <Group>
+    <Group spacing="xs">
       <Button size="xs" variant="outline" component={Link} href={Routes.LoginPage()}>
         Войти
       </Button>
@@ -70,18 +71,16 @@ const HeaderProfile = () => {
 
 const Header = () => {
   return (
-    <MantineHeader height={60}>
+    <MantineHeader height={80}>
       <Container h="100%">
         <Group position="apart" h="100%" noWrap>
-          <Text weight="bold" size={28} component={Link} href={Routes.Home()}>
-            ТРАЕКТОРИЯ
-          </Text>
-          <Group noWrap>
+          <Group noWrap spacing="xl">
+            <Logo w={50} />
             <Navigation />
-            <Suspense>
-              <HeaderProfile />
-            </Suspense>
           </Group>
+          <Suspense>
+            <HeaderProfile />
+          </Suspense>
         </Group>
       </Container>
     </MantineHeader>

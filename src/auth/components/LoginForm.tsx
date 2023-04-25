@@ -1,10 +1,10 @@
 import { PromiseReturnType } from "blitz"
-import Link from "next/link"
 import login from "src/auth/mutations/login"
 import { useMutation } from "@blitzjs/rpc"
 import { Routes } from "@blitzjs/next"
 import { useForm } from "@mantine/form"
 import { Button, Container, Paper, PasswordInput, TextInput, Title, Text } from "@mantine/core"
+import Link from "src/core/Link"
 
 type LoginFormProps = {
   onSuccess?: (user: PromiseReturnType<typeof login>) => void
@@ -43,7 +43,7 @@ export const LoginForm = (props: LoginFormProps) => {
         </Text>
 
         <form onSubmit={handleSubmit}>
-          <Paper withBorder shadow="md" p={30} mt={30} radius="md">
+          <Paper p={30} mt={30}>
             <TextInput label="Почта" {...form.getInputProps("email")} required />
             <PasswordInput label="Пароль" {...form.getInputProps("password")} required />
             <Button fullWidth mt="xl" type="submit">

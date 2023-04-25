@@ -1,6 +1,6 @@
 import { Routes } from "@blitzjs/next"
-import { Group } from "@mantine/core"
-import Link from "../Link"
+import { Button, Group } from "@mantine/core"
+import Link from "next/link"
 import { useRouter } from "next/router"
 
 const navigationItems = [
@@ -17,14 +17,9 @@ const Navigation = () => {
     <nav>
       <Group spacing="xl">
         {navigationItems.map((navItem) => (
-          <Link
-            key={navItem.label}
-            size="sm"
-            active={router.asPath === navItem.route.href}
-            href={navItem.route}
-          >
+          <Button component={Link} variant="subtle" key={navItem.label} href={navItem.route}>
             {navItem.label}
-          </Link>
+          </Button>
         ))}
       </Group>
     </nav>
