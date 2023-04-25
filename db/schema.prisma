@@ -2,8 +2,9 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_DATABASE_URL")
 }
 
 generator client {
@@ -12,17 +13,30 @@ generator client {
 
 // --------------------------------------
 
+enum Role {
+  USER
+  MODERATOR
+  ADMIN
+}
+
 model User {
   id             Int      @id @default(autoincrement())
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
-  name           String?
+  firstName      String
+  lastName       String
+  patronymic     String? //отчество пользователя
   email          String   @unique
   hashedPassword String?
-  role           String   @default("USER")
+  role           Role     @default(USER)
 
-  tokens   Token[]
-  sessions Session[]
+  tokens                    Token[]
+  sessions                  Session[]
+  courseStepStatuses        UserCourseStepStatus[]
+  enrollments               CourseEnrollment[]
+  courseStepQuestions       CourseStepQuestion[]
+  courseStepUpvotes         CourseStepQuestionUpvote[]
+  courseStepQuestionReplies CourseStepQuestionReply[]
 }
 
 model Session {
@@ -41,13 +55,11 @@ model Session {
 }
 
 model Token {
-  id          Int      @id @default(autoincrement())
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id          Int       @id @default(autoincrement())
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
   hashedToken String
-  type        String
-  // See note below about TokenType enum
-  // type        TokenType
+  type        TokenType
   expiresAt   DateTime
   sentTo      String
 
@@ -57,9 +69,200 @@ model Token {
   @@unique([hashedToken, type])
 }
 
-// NOTE: It's highly recommended to use an enum for the token type
-//       but enums only work in Postgres.
-//       See: https://blitzjs.com/docs/database-overview#switch-to-postgre-sql
-// enum TokenType {
-//   RESET_PASSWORD
-// }
+enum TokenType {
+  RESET_PASSWORD
+}
+
+// Траектория, или Flow
+model Flow {
+  id Int @id @default(autoincrement())
+
+  visible Boolean @default(false)
+
+  edges Edge[]
+  nodes Node[]
+
+  professionId Int        @unique
+  profession   Profession @relation(fields: [professionId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+//  Связь между узлами траектории
+model Edge {
+  id Int @id @default(autoincrement())
+
+  connectionId String
+  source       String
+  target       String
+
+  flowId Int
+  flow   Flow @relation(fields: [flowId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model Node {
+  id Int @id @default(autoincrement())
+
+  nodeId Int
+  x      Float
+  y      Float
+
+  courseId Int
+  course   Course @relation(fields: [courseId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  flowId   Int
+  flow     Flow   @relation(fields: [flowId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model Profession {
+  id    Int    @id @default(autoincrement())
+  title String
+
+  flow    Flow?
+  courses ProfessionCourseLink[]
+}
+
+model ProfessionCourseLink {
+  professionId Int
+  courseId     Int
+
+  profession Profession @relation(fields: [professionId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  course     Course     @relation(fields: [courseId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@id([professionId, courseId])
+}
+
+model Course {
+  id Int @id @default(autoincrement())
+
+  name             String
+  shortDescription String
+  previewImageUrl  String?
+  demoVideoUrl     String?
+
+  description String?
+
+  sections    CourseSection[]
+  enrollments CourseEnrollment[]
+  professions ProfessionCourseLink[]
+  flowNodes   Node[] // Узлы траектории, которые отсылают к этому курсу
+}
+
+model CourseEnrollment {
+  userId   Int
+  courseId Int
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  course Course @relation(fields: [courseId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@id([userId, courseId])
+}
+
+model CourseSection {
+  id Int @id @default(autoincrement())
+
+  title String
+  index Float
+
+  courseId Int
+  course   Course       @relation(fields: [courseId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  steps    CourseStep[]
+}
+
+model CourseStep {
+  id Int @id @default(autoincrement())
+
+  index    Float
+  title    String
+  duration Int
+
+  type CourseStepType
+
+  sectionId Int
+  section   CourseSection          @relation(fields: [sectionId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  statuses  UserCourseStepStatus[]
+  questions CourseStepQuestion[]
+
+  contentText  CourseStepContentText?
+  contentVideo CourseStepContentVideo?
+}
+
+model CourseStepContentVideo {
+  id Int @id @default(autoincrement())
+
+  url String
+
+  courseStepId Int        @unique
+  courseStep   CourseStep @relation(fields: [courseStepId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model CourseStepContentText {
+  id Int @id @default(autoincrement())
+
+  text String
+
+  courseStepId Int        @unique
+  courseStep   CourseStep @relation(fields: [courseStepId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+enum CourseStepType {
+  text
+  video
+  test
+  review
+}
+
+model CourseStepQuestion {
+  id Int @id @default(autoincrement())
+
+  courseStepId Int
+  userId       Int
+
+  questions String
+
+  courseStep CourseStep                 @relation(fields: [courseStepId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user       User                       @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  upvotes    CourseStepQuestionUpvote[]
+  replies    CourseStepQuestionReply[]
+}
+
+model CourseStepQuestionUpvote {
+  courseStepQuestionId Int
+  userId               Int
+
+  user               User               @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  courseStepQuestion CourseStepQuestion @relation(fields: [courseStepQuestionId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@id([courseStepQuestionId, userId])
+}
+
+model CourseStepQuestionReply {
+  id        Int       @id @default(autoincrement())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime? @updatedAt
+
+  message String
+
+  userId               Int
+  courseStepQuestionId Int
+
+  courseStepQuestion CourseStepQuestion @relation(fields: [courseStepQuestionId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  user               User               @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+}
+
+model CourseStepResource {
+  id Int @id @default(autoincrement())
+
+  name String
+  link String
+
+  type String
+}
+
+model UserCourseStepStatus {
+  userId       Int
+  user         User       @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  courseStepId Int
+  courseStep   CourseStep @relation(fields: [courseStepId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  completed Boolean @default(false)
+
+  @@id([userId, courseStepId])
+}
