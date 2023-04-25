@@ -1,0 +1,65 @@
+{
+  "name": "rzd",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "blitz dev",
+    "build": "blitz build",
+    "start": "blitz start",
+    "studio": "blitz prisma studio",
+    "lint": "eslint --ignore-path .gitignore --ext .js,.ts,.tsx ."
+  },
+  "prisma": {
+    "schema": "db/schema.prisma"
+  },
+  "prettier": {
+    "semi": false,
+    "printWidth": 100
+  },
+  "lint-staged": {
+    "*.{js,ts,tsx}": [
+      "eslint --fix"
+    ]
+  },
+  "dependencies": {
+    "@blitzjs/auth": "2.0.0-beta.26",
+    "@blitzjs/next": "2.0.0-beta.26",
+    "@blitzjs/rpc": "2.0.0-beta.26",
+    "@emotion/react": "11.10.6",
+    "@emotion/server": "11.10.0",
+    "@mantine/core": "6.0.8",
+    "@mantine/dates": "6.0.8",
+    "@mantine/form": "6.0.8",
+    "@mantine/hooks": "6.0.8",
+    "@mantine/modals": "6.0.8",
+    "@mantine/next": "6.0.8",
+    "@mantine/notifications": "6.0.8",
+    "@mantine/nprogress": "6.0.8",
+    "@prisma/client": "4.13.0",
+    "blitz": "2.0.0-beta.26",
+    "dayjs": "1.11.7",
+    "next": "13.3.0",
+    "prisma": "4.13.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0",
+    "zod": "3.21.4"
+  },
+  "devDependencies": {
+    "@next/bundle-analyzer": "12.0.8",
+    "@types/node": "18.11.9",
+    "@types/preview-email": "2.0.1",
+    "@types/react": "18.0.25",
+    "@typescript-eslint/eslint-plugin": "5.42.1",
+    "@vitejs/plugin-react": "2.2.0",
+    "eslint": "8.27.0",
+    "eslint-config-next": "12.3.1",
+    "eslint-config-prettier": "8.5.0",
+    "lint-staged": "13.0.3",
+    "prettier": "^2.7.1",
+    "prettier-plugin-prisma": "4.4.0",
+    "pretty-quick": "3.1.3",
+    "preview-email": "3.0.7",
+    "typescript": "^4.8.4",
+    "vite-tsconfig-paths": "3.6.0"
+  },
+  "private": true
+}
