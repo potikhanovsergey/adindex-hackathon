@@ -21,20 +21,21 @@ enum Role {
 
 model Company {
   id   Int    @id @default(autoincrement())
-  name String
+  name String // Название компании
 
   websiteUrl  String?
   email       String?
   telegramId  String?
   phoneNumber String?
 
-  description     String
-  recruiters      User[]
-  events          Event[]
-  vacancies       Vacancy[]
-  userInvitations UserInvitation[]
+  description     String // Описание компании (RichText)
+  recruiters      User[] // Рекрутеры компании (могут создавать курсы, события, вакансии, отправлять приглашения на вакансии, принимать заявки)
+  events          Event[] // События, созданные компанией
+  vacancies       Vacancy[] // Вакансии, созданные компанией
+  userInvitations UserInvitation[] // Приглашение пользователям по вакансиям
 }
 
+// Статус для приглашения или заявки по/на вакансию
 enum InvitationRequestStatus {
   OPENED // Приглашение или заявка отправлены
   REJECTED // Приглашение или заявка отклонены
@@ -47,7 +48,7 @@ model UserInvitation {
 
   status InvitationRequestStatus @default(OPENED)
 
-  message String
+  message String // Компания должна что-то написать пользователю при приглашении
 
   userId    Int
   companyId Int
@@ -65,10 +66,10 @@ model UserVacancyRequest {
   userId    Int
   vacancyId Int
 
-  cv     String? // Сопроводительное письмо
-  status InvitationRequestStatus @default(OPENED)
+  cv     String? // Сопроводительное письмо, пользователь может не отправлять его, RichText
+  status InvitationRequestStatus @default(OPENED) // Компания может обновлять этот статус на принятый/отклоненный
 
-  companyAnswerMessage String?
+  companyAnswerMessage String? // Компания, обновляя статус, должна дать сообщение ответа
 
   user    User    @relation(fields: [userId], references: [id])
   vacancy Vacancy @relation(fields: [vacancyId], references: [id])
@@ -80,23 +81,20 @@ model User {
   updatedAt      DateTime @updatedAt
   firstName      String
   lastName       String
-  patronymic     String? //отчество пользователя
+  patronymic     String? // отчество пользователя
   email          String   @unique
   hashedPassword String?
   role           Role     @default(USER)
 
-  companyId                 Int?
-  company                   Company?                   @relation(fields: [companyId], references: [id])
-  tokens                    Token[]
-  sessions                  Session[]
-  courseStepStatuses        UserCourseStepStatus[]
-  enrollments               CourseEnrollment[]
-  courseStepQuestions       CourseStepQuestion[]
-  courseStepUpvotes         CourseStepQuestionUpvote[]
-  courseStepQuestionReplies CourseStepQuestionReply[]
-  events                    EventEnrollment[]
-  invitations               UserInvitation[]
-  requests                  UserVacancyRequest[]
+  companyId          Int? // Если юзер относится к компании, он становится рекрутером компании
+  company            Company?               @relation(fields: [companyId], references: [id])
+  tokens             Token[]
+  sessions           Session[]
+  courseStepStatuses UserCourseStepStatus[] // Шаги курсов, которые прошел юзер
+  enrollments        CourseEnrollment[] // Записи юзера на курсы
+  events             EventEnrollment[]
+  invitations        UserInvitation[]
+  requests           UserVacancyRequest[]
 }
 
 model Session {
@@ -325,7 +323,6 @@ model CourseStep {
   sectionId Int
   section   CourseSection          @relation(fields: [sectionId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   statuses  UserCourseStepStatus[]
-  questions CourseStepQuestion[]
 
   contentText  CourseStepContentText?
   contentVideo CourseStepContentVideo?
@@ -354,44 +351,6 @@ enum CourseStepType {
   video
   test
   review
-}
-
-model CourseStepQuestion {
-  id Int @id @default(autoincrement())
-
-  courseStepId Int
-  userId       Int
-
-  questions String
-
-  courseStep CourseStep                 @relation(fields: [courseStepId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  user       User                       @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  upvotes    CourseStepQuestionUpvote[]
-  replies    CourseStepQuestionReply[]
-}
-
-model CourseStepQuestionUpvote {
-  courseStepQuestionId Int
-  userId               Int
-
-  user               User               @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  courseStepQuestion CourseStepQuestion @relation(fields: [courseStepQuestionId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-
-  @@id([courseStepQuestionId, userId])
-}
-
-model CourseStepQuestionReply {
-  id        Int       @id @default(autoincrement())
-  createdAt DateTime  @default(now())
-  updatedAt DateTime? @updatedAt
-
-  message String
-
-  userId               Int
-  courseStepQuestionId Int
-
-  courseStepQuestion CourseStepQuestion @relation(fields: [courseStepQuestionId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  user               User               @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 model CourseStepResource {
