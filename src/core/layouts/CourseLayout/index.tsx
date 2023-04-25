@@ -1,21 +1,13 @@
-import {
-  Container,
-  AppShell,
-  Stack,
-  Divider,
-  Box,
-  ActionIcon,
-  rem,
-  useMantineTheme,
-} from "@mantine/core"
+import { Container, AppShell, Divider, Box, ActionIcon, useMantineTheme } from "@mantine/core"
 import { FC, ReactNode, useMemo } from "react"
-import { CourseStepPageProps, ExtendedCourse, ExtendedCourseStep } from "src/course/types"
+import { CourseStepPageProps, ExtendedCourseStep } from "src/course/types"
 import Header from "../Header"
 import CourseAside from "./CourseAside"
 import CourseTabs from "./CourseTabs"
-import { Routes, useParam } from "@blitzjs/next"
+import { Routes } from "@blitzjs/next"
 import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react"
 import Link from "next/link"
+import Footer from "../Footer"
 
 interface CourseLayoutProps {
   children: ReactNode
@@ -64,6 +56,7 @@ const CourseLayout: FC<CourseLayoutProps> = ({ children, step }) => {
       styles={{ main: { paddingLeft: 0, paddingRight: "var(--mantine-aside-width)" } }}
       aside={<CourseAside course={step.section.course} />}
       header={<Header />}
+      footer={<Footer />}
     >
       <Box sx={{ position: "relative" }}>
         <Container px={64}>

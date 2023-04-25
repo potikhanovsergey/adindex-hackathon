@@ -71,7 +71,7 @@ const HeaderProfile = () => {
 
 const Header = () => {
   return (
-    <MantineHeader height={80}>
+    <MantineHeader fixed height={80}>
       <Container h="100%">
         <Group position="apart" h="100%" noWrap>
           <Group noWrap spacing="xl">

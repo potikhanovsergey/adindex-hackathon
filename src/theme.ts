@@ -8,10 +8,10 @@ import {
 import { Rubik } from "next/font/google"
 
 export const font = Rubik({
-  variable: "--bubble-font",
-  weight: ["400", "600", "700"],
-  subsets: ["latin"],
-  preload: false,
+  variable: "--rubik-font",
+  weight: ["400", "500", "600", "700"],
+  subsets: ["cyrillic", "latin"],
+  preload: true,
 })
 
 const defaultFonts = `-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji`
@@ -21,14 +21,22 @@ const BubbleTheme: MantineThemeOverride = {
   defaultRadius: "sm",
   primaryShade: 5,
   primaryColor: "yellow",
-  fontFamily: `var(--bubble-font), ${defaultFonts}`,
+  fontFamily: `var(--rubik-font), ${defaultFonts}`,
   headings: {
-    fontFamily: `var(--bubble-font), ${defaultFonts}`,
+    fontFamily: `var(--rubik-font), ${defaultFonts}`,
   },
   other: {
     transition: ".15s ease",
   },
   components: {
+    AppShell: {
+      styles: (theme) => ({
+        main: {
+          minHeight: "100vh",
+          paddingTop: "calc(var(--mantine-header-height) + 16px)",
+        },
+      }),
+    },
     Button: {
       defaultProps: () => ({
         loaderPosition: "center",

@@ -7,16 +7,19 @@ import PageProgress from "src/core/components/PageProgress"
 import RootErrorFallback from "src/core/components/RootErrorFallback"
 import "src/flow/components/Flow/index.css"
 import { ModalsProvider } from "@mantine/modals"
+import FontProvider from "src/core/components/FontProvider"
 
 const App: FC<AppProps> = ({ Component, pageProps }) => {
   const getLayout = Component.getLayout || ((page) => page)
   return (
     <ErrorBoundary FallbackComponent={RootErrorFallback}>
       <MantineProvider withGlobalStyles withNormalizeCSS theme={theme}>
-        <ModalsProvider>
-          <PageProgress />
-          {getLayout(<Component {...pageProps} />)}
-        </ModalsProvider>
+        <FontProvider>
+          <ModalsProvider>
+            <PageProgress />
+            {getLayout(<Component {...pageProps} />)}
+          </ModalsProvider>
+        </FontProvider>
       </MantineProvider>
     </ErrorBoundary>
   )

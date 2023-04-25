@@ -1,24 +1,14 @@
-import Head from "next/head"
 import React from "react"
 import { BlitzLayout } from "@blitzjs/next"
 import { AppShell } from "@mantine/core"
 import Header from "./Header"
-import { font } from "src/theme"
+import Footer from "./Footer"
 
-const Layout: BlitzLayout<{ title?: string; children?: React.ReactNode }> = ({
-  title,
-  children,
-}) => {
+const Layout: BlitzLayout<{ children?: React.ReactNode }> = ({ children }) => {
   return (
-    <>
-      <Head>
-        <title>{title || "fs-template"}</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-      <AppShell className={font.variable} header={<Header />}>
-        {children}
-      </AppShell>
-    </>
+    <AppShell fixed={false} footer={<Footer />} header={<Header />}>
+      {children}
+    </AppShell>
   )
 }
 

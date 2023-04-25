@@ -1,6 +1,15 @@
 import signup from "src/auth/mutations/signup"
 import { useMutation } from "@blitzjs/rpc"
-import { Button, Container, Paper, PasswordInput, TextInput, Title, Text } from "@mantine/core"
+import {
+  Button,
+  Container,
+  Paper,
+  PasswordInput,
+  TextInput,
+  Title,
+  Text,
+  Stack,
+} from "@mantine/core"
 import { useForm } from "@mantine/form"
 import {
   validateEmail,
@@ -55,11 +64,13 @@ const SignupForm = () => {
       </Text>
       <form onSubmit={handleSubmit}>
         <Paper p={30} mt={30}>
-          <TextInput label="Имя" {...form.getInputProps("firstName")} required />
-          <TextInput label="Фамилия" {...form.getInputProps("lastName")} required />
-          <TextInput label="Отчество" {...form.getInputProps("patronymic")} />
-          <TextInput label="Почта" {...form.getInputProps("email")} required />
-          <PasswordInput label="Пароль" {...form.getInputProps("password")} required />
+          <Stack spacing="xs">
+            <TextInput label="Имя" {...form.getInputProps("firstName")} required />
+            <TextInput label="Фамилия" {...form.getInputProps("lastName")} required />
+            <TextInput label="Отчество" {...form.getInputProps("patronymic")} />
+            <TextInput label="Почта" {...form.getInputProps("email")} required />
+            <PasswordInput label="Пароль" {...form.getInputProps("password")} required />
+          </Stack>
           <Button fullWidth mt="xl" type="submit">
             Зарегистрироваться
           </Button>
