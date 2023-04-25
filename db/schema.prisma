@@ -19,6 +19,16 @@ enum Role {
   ADMIN
 }
 
+model RecruiterRequest {
+  id Int @id @default(autoincrement())
+
+  userId    Int
+  companyId Int
+
+  user    User    @relation(fields: [userId], references: [id])
+  company Company @relation(fields: [companyId], references: [id])
+}
+
 model Company {
   id   Int    @id @default(autoincrement())
   name String // Название компании
@@ -28,11 +38,12 @@ model Company {
   telegramId  String?
   phoneNumber String?
 
-  description     String // Описание компании (RichText)
-  recruiters      User[] // Рекрутеры компании (могут создавать курсы, события, вакансии, отправлять приглашения на вакансии, принимать заявки)
-  events          Event[] // События, созданные компанией
-  vacancies       Vacancy[] // Вакансии, созданные компанией
-  userInvitations UserInvitation[] // Приглашение пользователям по вакансиям
+  description       String? // Описание компании (RichText)
+  recruiters        User[] // Рекрутеры компании (могут создавать курсы, события, вакансии, отправлять приглашения на вакансии, принимать заявки)
+  events            Event[] // События, созданные компанией
+  vacancies         Vacancy[] // Вакансии, созданные компанией
+  userInvitations   UserInvitation[] // Приглашение пользователям по вакансиям
+  recruiterRequests RecruiterRequest[] // Заявка пользователя на роль рекрутера компании
 }
 
 // Статус для приглашения или заявки по/на вакансию
@@ -95,6 +106,7 @@ model User {
   events             EventEnrollment[]
   invitations        UserInvitation[]
   requests           UserVacancyRequest[]
+  recruiterRequests  RecruiterRequest[] // Заявка юзера на возможность стать рекрутером компании
 }
 
 model Session {
@@ -140,8 +152,8 @@ model Flow {
   edges Edge[]
   nodes Node[]
 
-  professionId Int     @unique
-  profession   Vacancy @relation(fields: [professionId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  vacancyId Int     @unique
+  vacancy   Vacancy @relation(fields: [vacancyId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 //  Связь между узлами траектории

@@ -153,7 +153,6 @@ const BubbleTheme: MantineThemeOverride = {
     },
     Paper: {
       defaultProps: {
-        p: "lg",
         withBorder: true,
         shadow: "none",
       },
