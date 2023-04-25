@@ -62,7 +62,7 @@ const CourseContentsStep: FC<
     })
 
   return (
-    <Paper p="sm" bg="dark.5">
+    <Paper p="sm">
       <Group noWrap position="apart">
         <div>
           <Group noWrap spacing="xs" mb={8}>

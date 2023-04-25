@@ -35,7 +35,7 @@ const CourseStepTypePicker: FC = () => {
 
   return (
     <div>
-      <Text color="dimemd">После создания шага его тип уже нельзя будет изменить</Text>
+      <Text color="dimmed">После создания шага его тип уже нельзя будет изменить</Text>
       <SimpleGrid my="md" cols={2} spacing="md">
         {cards.map((card) => (
           <CourseStepTypeCard

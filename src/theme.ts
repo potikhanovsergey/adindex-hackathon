@@ -209,6 +209,11 @@ const BubbleTheme: MantineThemeOverride = {
         },
       },
     },
+    NavLink: {
+      defaultProps: (theme) => ({
+        variant: "subtle",
+      }),
+    },
     Header: {
       styles: (theme) => ({
         root: {

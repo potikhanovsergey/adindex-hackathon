@@ -5,7 +5,11 @@ import { useRouter } from "next/router"
 
 const navigationItems = [
   {
-    label: "Все курсы",
+    label: "Вакансии",
+    route: Routes.VacanciesPage(),
+  },
+  {
+    label: "Курсы",
     route: Routes.CoursesPage(),
   },
 ]

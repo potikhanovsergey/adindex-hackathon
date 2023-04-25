@@ -15,13 +15,15 @@ const ProfileInfoPage: BlitzPage = ({ user }: { user: User }) => {
 
   return (
     <ProfileLayout>
-      <Group mb="md" align="flex-start">
+      <Group mb="md">
         <Avatar size="xl">{user.firstName.substring(0, 1) + user.lastName.substring(0, 1)}</Avatar>
         <Stack spacing={0} align="flex-start">
           <Text size={36} weight="bold">
             {fullName}
           </Text>
-          {(user.role === Role.ADMIN || user.role === Role.RECRUITER) && <Badge>{user.role}</Badge>}
+          {(user.role === Role.ADMIN || user.role === Role.RECRUITER) && (
+            <Badge color="lime">{user.role}</Badge>
+          )}
         </Stack>
       </Group>
       <Stack>

@@ -61,7 +61,12 @@ const CourseLayout: FC<CourseLayoutProps> = ({ children, step }) => {
 
   return (
     <AppShell
-      styles={{ main: { paddingLeft: 0, paddingRight: "var(--mantine-aside-width)" } }}
+      styles={{
+        main: {
+          paddingLeft: 0,
+          paddingRight: "var(--mantine-aside-width)",
+        },
+      }}
       aside={<CourseAside course={step.section.course} />}
       header={<Header />}
     >
