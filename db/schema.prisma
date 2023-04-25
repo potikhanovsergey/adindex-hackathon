@@ -15,8 +15,63 @@ generator client {
 
 enum Role {
   USER
-  MODERATOR
+  RECRUITER
   ADMIN
+}
+
+model Company {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  websiteUrl  String?
+  email       String?
+  telegramId  String?
+  phoneNumber String?
+
+  description     String
+  recruiters      User[]
+  events          Event[]
+  vacancies       Vacancy[]
+  userInvitations UserInvitation[]
+}
+
+enum InvitationRequestStatus {
+  OPENED // Приглашение или заявка отправлены
+  REJECTED // Приглашение или заявка отклонены
+  ACCEPTED // Приглашение или заявка приняты
+}
+
+// Компания может пригласить пользователя на вакансию
+model UserInvitation {
+  id Int @id @default(autoincrement())
+
+  status InvitationRequestStatus @default(OPENED)
+
+  message String
+
+  userId    Int
+  companyId Int
+  vacancyId Int
+
+  user    User    @relation(fields: [userId], references: [id])
+  company Company @relation(fields: [companyId], references: [id])
+  vacancy Vacancy @relation(fields: [vacancyId], references: [id])
+}
+
+// Юзер может отправить заявку на вакансию
+model UserVacancyRequest {
+  id Int @id @default(autoincrement())
+
+  userId    Int
+  vacancyId Int
+
+  cv     String? // Сопроводительное письмо
+  status InvitationRequestStatus @default(OPENED)
+
+  companyAnswerMessage String?
+
+  user    User    @relation(fields: [userId], references: [id])
+  vacancy Vacancy @relation(fields: [vacancyId], references: [id])
 }
 
 model User {
@@ -30,6 +85,8 @@ model User {
   hashedPassword String?
   role           Role     @default(USER)
 
+  companyId                 Int?
+  company                   Company?                   @relation(fields: [companyId], references: [id])
   tokens                    Token[]
   sessions                  Session[]
   courseStepStatuses        UserCourseStepStatus[]
@@ -37,6 +94,9 @@ model User {
   courseStepQuestions       CourseStepQuestion[]
   courseStepUpvotes         CourseStepQuestionUpvote[]
   courseStepQuestionReplies CourseStepQuestionReply[]
+  events                    EventEnrollment[]
+  invitations               UserInvitation[]
+  requests                  UserVacancyRequest[]
 }
 
 model Session {
@@ -82,8 +142,8 @@ model Flow {
   edges Edge[]
   nodes Node[]
 
-  professionId Int        @unique
-  profession   Profession @relation(fields: [professionId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  professionId Int     @unique
+  profession   Vacancy @relation(fields: [professionId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
 //  Связь между узлами траектории
@@ -111,22 +171,71 @@ model Node {
   flow     Flow   @relation(fields: [flowId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 }
 
-model Profession {
+enum VacancyStatus {
+  OPENED // Видна всем пользователям, можно подать заявку
+  HIDDEN // Не видна никому, кроме компании. Нельзя подать заявку
+  ARCHIVED // Видна всем пользователям, нельзя подать заявку
+}
+
+model Vacancy {
   id    Int    @id @default(autoincrement())
   title String
 
-  flow    Flow?
-  courses ProfessionCourseLink[]
+  description String
+  salary      Float?
+
+  status VacancyStatus @default(OPENED)
+
+  companyId Int
+  company   Company @relation(fields: [companyId], references: [id])
+
+  flow            Flow?
+  tags            VacancyTagLink[]
+  userInvitations UserInvitation[]
+  userRequests    UserVacancyRequest[]
 }
 
-model ProfessionCourseLink {
-  professionId Int
-  courseId     Int
+model VacancyTagLink {
+  vacancyId Int
+  tagId     Int
 
-  profession Profession @relation(fields: [professionId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  course     Course     @relation(fields: [courseId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  power Int?
 
-  @@id([professionId, courseId])
+  tag     Tag     @relation(fields: [tagId], references: [id])
+  vacancy Vacancy @relation(fields: [vacancyId], references: [id])
+
+  @@id([vacancyId, tagId])
+}
+
+model TagCategory {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+
+  tags Tag[]
+}
+
+model Tag {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+
+  categoryId Int?
+  category   TagCategory? @relation(fields: [categoryId], references: [id])
+
+  courses   CourseTagLink[] // Курсы, у которых есть тег
+  events    EventTagLink[] // События, у которых есть тег
+  vacancies VacancyTagLink[] // Вакансии, у которых есть тег
+}
+
+model CourseTagLink {
+  courseId Int
+  tagId    Int
+
+  power Int
+
+  tag    Tag    @relation(fields: [tagId], references: [id])
+  course Course @relation(fields: [courseId], references: [id])
+
+  @@id([courseId, tagId])
 }
 
 model Course {
@@ -141,8 +250,46 @@ model Course {
 
   sections    CourseSection[]
   enrollments CourseEnrollment[]
-  professions ProfessionCourseLink[]
   flowNodes   Node[] // Узлы траектории, которые отсылают к этому курсу
+  tags        CourseTagLink[]
+}
+
+model EventTagLink {
+  eventId Int
+  tagId   Int
+
+  power Int
+
+  tag   Tag   @relation(fields: [tagId], references: [id])
+  event Event @relation(fields: [eventId], references: [id])
+
+  @@id([eventId, tagId])
+}
+
+model EventEnrollment {
+  userId  Int
+  eventId Int
+
+  user  User  @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  event Event @relation(fields: [eventId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+
+  @@id([userId, eventId])
+}
+
+model Event {
+  id Int @id @default(autoincrement())
+
+  name            String
+  previewImageUrl String?
+  date            DateTime
+  description     String
+
+  companyId Int
+  company   Company @relation(fields: [companyId], references: [id])
+
+  websiteUrl  String?
+  tags        EventTagLink[]
+  enrollments EventEnrollment[]
 }
 
 model CourseEnrollment {
@@ -258,11 +405,10 @@ model CourseStepResource {
 
 model UserCourseStepStatus {
   userId       Int
-  user         User       @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   courseStepId Int
-  courseStep   CourseStep @relation(fields: [courseStepId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
-  completed Boolean @default(false)
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  courseStep CourseStep @relation(fields: [courseStepId], references: [id], onDelete: Cascade, onUpdate: Cascade)
 
   @@id([userId, courseStepId])
 }

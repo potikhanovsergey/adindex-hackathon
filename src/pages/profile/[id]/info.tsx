@@ -6,6 +6,7 @@ import { Suspense } from "react"
 import ProfileLayout from "src/core/layouts/ProfileLayout"
 import UserEnrollments from "src/profile/UserEnrollments"
 import { getUserSSP } from "src/users/getSSP"
+import { Role } from "db"
 
 const ProfileInfoPage: BlitzPage = ({ user }: { user: User }) => {
   const fullName = user
@@ -20,7 +21,7 @@ const ProfileInfoPage: BlitzPage = ({ user }: { user: User }) => {
           <Text size={36} weight="bold">
             {fullName}
           </Text>
-          {(user.role === "ADMIN" || user.role === "MODERATOR") && <Badge>{user.role}</Badge>}
+          {(user.role === Role.ADMIN || user.role === Role.RECRUITER) && <Badge>{user.role}</Badge>}
         </Stack>
       </Group>
       <Stack>

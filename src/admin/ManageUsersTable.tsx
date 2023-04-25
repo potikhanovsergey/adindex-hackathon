@@ -87,20 +87,7 @@ const ManageUsersTable = ({ users }: { users: User[] }) => {
           <Stack>
             <Select
               label="Роль пользователя"
-              data={[
-                {
-                  value: "USER",
-                  label: "USER",
-                },
-                {
-                  value: "MODERATOR",
-                  label: "MODERATOR",
-                },
-                {
-                  value: "ADMIN",
-                  label: "ADMIN",
-                },
-              ]}
+              data={[Role.USER, Role.RECRUITER, Role.ADMIN]}
               {...form.getInputProps("role")}
             />
             <Button type="submit">Сохранить изменения</Button>
