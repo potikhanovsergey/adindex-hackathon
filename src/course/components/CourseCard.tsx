@@ -9,10 +9,7 @@ const CourseCard = ({ course }: { course: Course }) => {
 
   return (
     <Paper p={0} display="flex" sx={{ flexDirection: "column" }}>
-      <Image
-        src="https://lenskrayon.ru/images/news/2021-05-25_Poezd/Photo.jpg"
-        alt="course preview"
-      />
+      <Image src={course.previewImageUrl} alt="course preview" />
       <Stack p="sm" spacing={0}>
         <Text weight="bold" mb="sm">
           {course.name}

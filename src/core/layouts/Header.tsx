@@ -49,6 +49,15 @@ const HeaderProfile = () => {
           </>
         )}
 
+        {user.role === "RECRUITER" && (
+          <>
+            <Menu.Item component={Link} href={Routes.ManageUsersPage()}>
+              Профиль компании
+            </Menu.Item>
+            <Menu.Divider />
+          </>
+        )}
+
         <Menu.Item component={Link} href={Routes.ProfileInfoPage({ id: user.id })}>
           Перейти в профиль
         </Menu.Item>
