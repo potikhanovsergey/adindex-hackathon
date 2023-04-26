@@ -21,14 +21,20 @@ const BubbleTheme: MantineThemeOverride = {
   defaultRadius: "sm",
   primaryShade: 5,
   primaryColor: "yellow",
-  fontFamily: `var(--rubik-font), ${defaultFonts}`,
+  // fontFamily: `var(--rubik-font), ${defaultFonts}`,
   headings: {
-    fontFamily: `var(--rubik-font), ${defaultFonts}`,
+    // fontFamily: `var(--rubik-font), ${defaultFonts}`,
   },
+  datesLocale: "ru",
   other: {
     transition: ".15s ease",
   },
   components: {
+    DateInput: {
+      defaultProps: {
+        locale: "ru",
+      },
+    },
     AppShell: {
       styles: (theme) => ({
         main: {
@@ -36,6 +42,12 @@ const BubbleTheme: MantineThemeOverride = {
           paddingTop: "calc(var(--mantine-header-height) + 16px)",
         },
       }),
+    },
+    Loader: {
+      defaultProps: {
+        size: "sm",
+        color: "dark",
+      },
     },
     Tooltip: {
       defaultProps: {
@@ -211,7 +223,10 @@ const BubbleTheme: MantineThemeOverride = {
       defaultProps: {
         size: "xs",
       },
-      styles: () => ({
+      styles: (theme) => ({
+        dropdown: {
+          border: `2px solid ${theme.black}`,
+        },
         item: {
           "&:not(:last-child)": {
             marginBottom: rem(4),
@@ -220,14 +235,11 @@ const BubbleTheme: MantineThemeOverride = {
       }),
     },
     Popover: {
-      defaultProps: {
-        shadow: "md",
-      },
-      styles: {
+      styles: (theme) => ({
         dropdown: {
-          border: "none",
+          border: `2px solid ${theme.black}`,
         },
-      },
+      }),
     },
     HoverCard: {
       styles: (theme) => ({

@@ -298,18 +298,38 @@ model EventEnrollment {
   @@id([userId, eventId])
 }
 
+enum EventType {
+  LECTURE
+  FORUM
+  COMPETITION
+}
+
+enum EventStatus {
+  HIDDEN
+  WAITING
+  ONGOING
+  PASSED
+}
+
 model Event {
   id Int @id @default(autoincrement())
 
+  type   EventType
+  status EventStatus @default(HIDDEN)
+
   name            String
   previewImageUrl String?
-  date            DateTime
-  description     String
+
+  startDate DateTime
+  endDate   DateTime
+
+  about    String?
+  rules    String?
+  contacts String?
 
   companyId Int
   company   Company @relation(fields: [companyId], references: [id])
 
-  websiteUrl  String?
   tags        EventTagLink[]
   enrollments EventEnrollment[]
 }
