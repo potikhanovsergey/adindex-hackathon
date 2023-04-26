@@ -1,5 +1,5 @@
 import { BlitzPage } from "@blitzjs/next"
-import { Container, useMantineTheme, Box, rem } from "@mantine/core"
+import { Container, useMantineTheme, Box, rem, Loader } from "@mantine/core"
 import { GetServerSideProps } from "next"
 import { Suspense } from "react"
 import Layout from "src/core/layouts/Layout"
@@ -22,7 +22,7 @@ const CoursePage: BlitzPage<CoursePageProps> = ({ course }) => {
           <div>
             <CourseInfo course={course} />
           </div>
-          <Suspense>
+          <Suspense fallback={<Loader />}>
             <CourseInfoCard course={course} />
           </Suspense>
         </Box>

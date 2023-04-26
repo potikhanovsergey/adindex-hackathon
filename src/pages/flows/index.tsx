@@ -1,7 +1,7 @@
 import { BlitzPage } from "@blitzjs/auth"
 import { Routes } from "@blitzjs/next"
 import { useQuery } from "@blitzjs/rpc"
-import { Button, Container, Group } from "@mantine/core"
+import { Button, Container, Group, Loader } from "@mantine/core"
 import Link from "next/link"
 import { Suspense } from "react"
 import Layout from "src/core/layouts/Layout"
@@ -21,7 +21,7 @@ const FlowsPage: BlitzPage = () => {
         <Group position="right">
           <Button>Новая траектория</Button>
         </Group>
-        <Suspense>
+        <Suspense fallback={<Loader />}>
           <FlowsFetcher />
         </Suspense>
       </Container>

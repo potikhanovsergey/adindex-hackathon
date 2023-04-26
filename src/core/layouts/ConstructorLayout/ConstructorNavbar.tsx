@@ -1,5 +1,5 @@
 import { Routes } from "@blitzjs/next"
-import { Button, Navbar, ScrollArea } from "@mantine/core"
+import { Button, Loader, Navbar, ScrollArea } from "@mantine/core"
 import { IconPlus } from "@tabler/icons-react"
 import Link from "next/link"
 import { FC, Suspense } from "react"
@@ -19,7 +19,7 @@ const ConstructorNavbar: FC = () => {
         >
           Новый курс
         </Button>
-        <Suspense>
+        <Suspense fallback={<Loader />}>
           <NavLinksCourses />
         </Suspense>
       </ScrollArea>

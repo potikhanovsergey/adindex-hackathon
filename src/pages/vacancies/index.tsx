@@ -1,6 +1,6 @@
 import Layout from "src/core/layouts/Layout"
 import { BlitzPage } from "@blitzjs/next"
-import { Stack, Title, Group, Paper, Text, TextInput, Grid } from "@mantine/core"
+import { Stack, Title, Group, Paper, Text, TextInput, Grid, Loader } from "@mantine/core"
 import { useQuery } from "@blitzjs/rpc"
 import VacancyCard, { ExtendedVacancy } from "src/vacancy/components/VacancyCard"
 import getVacancies from "src/vacancy/queries/getVacancies"
@@ -39,7 +39,7 @@ const VacanciesPage: BlitzPage = () => {
           </Paper>
         </Grid.Col>
         <Grid.Col span={9}>
-          <Suspense>
+          <Suspense fallback={<Loader />}>
             <AllVacancies />
           </Suspense>
         </Grid.Col>

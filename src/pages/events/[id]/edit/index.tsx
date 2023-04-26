@@ -9,13 +9,13 @@ import {
 } from "@tabler/icons-react"
 import { useState } from "react"
 import Link from "src/core/Link"
-import { EventPageProps } from "../../types"
 import { getEventSSP } from "src/event/getSSP"
 import EventLayout from "src/core/layouts/EventLayout"
 import EditEventForm from "src/event/components/Constructor/EditEventForm"
 import UploadNewPhoto from "src/event/components/Constructor/UploadNewPhoto"
 import { supabase } from "lib/supabase"
 import EventRichTextEdit from "src/event/components/Constructor/EventRichTextEdit"
+import { EventPageProps } from "src/event/types"
 
 const EditEventPage: BlitzPage<EventPageProps> = ({ event }) => {
   const [activeTab, setActiveTab] = useState("description")

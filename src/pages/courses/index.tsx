@@ -1,6 +1,6 @@
 import { BlitzPage } from "@blitzjs/auth"
 import Layout from "src/core/layouts/Layout"
-import { SimpleGrid, Title } from "@mantine/core"
+import { Loader, SimpleGrid, Title } from "@mantine/core"
 import { useQuery } from "@blitzjs/rpc"
 import getCourses from "src/course/queries/getCourses"
 import CourseCard from "src/course/components/CourseCard"
@@ -22,7 +22,7 @@ const CoursesPage: BlitzPage = () => {
   return (
     <Layout>
       <Title mb={48}>Все курсы</Title>
-      <Suspense>
+      <Suspense fallback={<Loader />}>
         <Courses />
       </Suspense>
     </Layout>
