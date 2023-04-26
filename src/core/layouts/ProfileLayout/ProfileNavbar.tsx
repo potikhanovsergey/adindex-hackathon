@@ -6,10 +6,6 @@ import Link from "next/link"
 
 const PROFILE_SUBLINKS = [
   {
-    label: "Публичный профиль",
-    slug: "info",
-  },
-  {
     label: "Редактирование профиля",
     slug: "settings",
   },
@@ -21,7 +17,13 @@ const ProfileNavbar: FC = () => {
   const router = useRouter()
 
   return (
-    <Navbar width={{ base: 256 }}>
+    <Navbar width={{ base: 256 }} fixed>
+      <NavLink
+        label="Публичный профиль"
+        description="Вы перейдете на страницу профиля"
+        component={Link}
+        href={`/profile/${param}`}
+      />
       {PROFILE_SUBLINKS.map((sublink) => (
         <NavLink
           active={router.asPath === `/profile/${param}/${sublink.slug}`}

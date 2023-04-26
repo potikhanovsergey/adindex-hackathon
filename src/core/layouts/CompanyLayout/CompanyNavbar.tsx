@@ -22,6 +22,14 @@ const COMPANY_SUBLINKS = [
     label: "Предложения вакансий",
     slug: "invitations",
   },
+  {
+    label: "Создать курс",
+    slug: "createCourse",
+  },
+  {
+    label: "Создать событие",
+    slug: "createEvent",
+  },
 ]
 
 const CompanyNavbar: FC = () => {

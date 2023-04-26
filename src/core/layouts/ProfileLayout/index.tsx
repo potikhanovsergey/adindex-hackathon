@@ -9,7 +9,7 @@ interface ProfileLayoutProps {
 
 const ProfileLayout: FC<ProfileLayoutProps> = ({ children }) => {
   return (
-    <AppShell fixed={false} navbar={<ProfileNavbar />} header={<Header />}>
+    <AppShell navbar={<ProfileNavbar />} header={<Header />}>
       <Container>{children}</Container>
     </AppShell>
   )
