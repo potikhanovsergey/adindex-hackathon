@@ -81,7 +81,7 @@ const CourseContents: FC<CoursePageProps> = ({ course }) => {
             <Accordion.Item value={section.id + ""} key={section.id}>
               <AccordionControl totalSections={course.sections.length} section={section} index={i}>
                 Секция {i + 1}.{" "}
-                <Text color="green" span inherit>
+                <Text color="yellow" span inherit>
                   {section.title}
                 </Text>
               </AccordionControl>

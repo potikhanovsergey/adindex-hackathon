@@ -73,7 +73,7 @@ const CourseContentsStep: FC<
                 target="_blank"
                 span
                 inherit
-                color="green"
+                color="yellow"
                 weight="bold"
               >
                 {step.title}

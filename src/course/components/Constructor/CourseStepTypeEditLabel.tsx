@@ -10,7 +10,7 @@ const CourseStepTypeEditLabel: FC = () => {
   return (
     <Text>
       Настройка шага{" "}
-      <Text color="green" span inherit>
+      <Text color="yellow" span inherit>
         &quot;{STEP_TYPE_LABEL[courseStepTypeValue]}&quot;
       </Text>
     </Text>

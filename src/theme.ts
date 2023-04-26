@@ -252,6 +252,16 @@ const BubbleTheme: MantineThemeOverride = {
         },
       }),
     },
+    Accordion: {
+      styles: (theme) => ({
+        item: {
+          border: `${rem(2)} solid ${theme.black}`,
+          "&[data-active=true]": {
+            borderColor: theme.black,
+          },
+        },
+      }),
+    },
     Aside: {
       styles: (theme) => ({
         root: {
