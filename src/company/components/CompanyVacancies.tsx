@@ -23,17 +23,15 @@ const CompanyVacancies = ({
   })
 
   return (
-    <>
-      <Stack>
-        {vacancies.map((vacancy) => (
-          <VacancyCard
-            vacancy={vacancy as ExtendedVacancy}
-            key={vacancy.id}
-            withUserButton={withUserButton}
-          />
-        ))}
-      </Stack>
-    </>
+    <Stack>
+      {vacancies.map((vacancy) => (
+        <VacancyCard
+          vacancy={vacancy as ExtendedVacancy}
+          key={vacancy.id}
+          withUserButton={withUserButton}
+        />
+      ))}
+    </Stack>
   )
 }
 

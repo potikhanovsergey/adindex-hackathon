@@ -1,6 +1,6 @@
 import { FC } from "react"
 import { Group, Navbar, NavLink, Text } from "@mantine/core"
-import { useParam } from "@blitzjs/next"
+import { Routes, useParam } from "@blitzjs/next"
 import { useRouter } from "next/router"
 import Link from "next/link"
 import { IconExternalLink } from "@tabler/icons-react"
@@ -21,14 +21,6 @@ const COMPANY_SUBLINKS = [
   {
     label: "Предложения вакансий",
     slug: "invitations",
-  },
-  {
-    label: "Создать курс",
-    slug: "createCourse",
-  },
-  {
-    label: "Создать событие",
-    slug: "createEvent",
   },
 ]
 
@@ -54,6 +46,18 @@ const CompanyNavbar: FC = () => {
           href={`/companies/${param}/${sublink.slug}`}
         />
       ))}
+      <NavLink
+        label="Создать событие"
+        description="Вы перейдете на страницу создания события"
+        component={Link}
+        href={Routes.CreateEventPage()}
+      />
+      <NavLink
+        label="Создать курс"
+        description="Вы перейдете на страницу создания курса"
+        component={Link}
+        href={Routes.NewCoursePage()}
+      />
     </Navbar>
   )
 }

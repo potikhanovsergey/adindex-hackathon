@@ -10,7 +10,10 @@ export const getCompanySSP = gSSP(async ({ params }) => {
   let company: ExtendedCompany | null = null
 
   if (!isNaN(+id)) {
-    company = await db.company.findFirst({ where: { id: +id }, include: { vacancies: true } })
+    company = await db.company.findFirst({
+      where: { id: +id },
+      include: { vacancies: true, events: true },
+    })
   }
 
   if (!company) {
