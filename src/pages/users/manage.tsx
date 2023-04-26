@@ -1,7 +1,7 @@
 import { BlitzPage, useSession } from "@blitzjs/auth"
 import { Routes } from "@blitzjs/next"
 import { useQuery } from "@blitzjs/rpc"
-import { Container, Title } from "@mantine/core"
+import { Container, Loader, Title } from "@mantine/core"
 import { useRouter } from "next/router"
 import { Suspense, useEffect } from "react"
 import ManageUsersTable from "src/admin/ManageUsersTable"
@@ -40,7 +40,7 @@ const ManageUsers = () => {
 
 const ManageUsersPage: BlitzPage = () => {
   return (
-    <Suspense>
+    <Suspense fallback={<Loader />}>
       <ManageUsers />
     </Suspense>
   )
