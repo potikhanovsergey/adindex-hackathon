@@ -10,7 +10,7 @@ interface CompanyLayoutProps {
 
 const CompanyLayout: FC<CompanyLayoutProps> = ({ children }) => {
   return (
-    <AppShell footer={<Footer />} navbar={<CompanyNavbar />} header={<Header />}>
+    <AppShell navbar={<CompanyNavbar />} header={<Header />}>
       <Container>{children}</Container>
     </AppShell>
   )

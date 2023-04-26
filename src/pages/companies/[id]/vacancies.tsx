@@ -2,6 +2,7 @@ import { BlitzPage, Routes } from "@blitzjs/next"
 import { Button, Group, Title } from "@mantine/core"
 import { Company } from "@prisma/client"
 import { GetServerSideProps } from "next"
+import Link from "next/link"
 import { useRouter } from "next/router"
 import CompanyVacancies from "src/company/components/CompanyVacancies"
 import { getCompanySSP } from "src/company/getSSP"
@@ -14,7 +15,9 @@ const CompanyVacanciesPage: BlitzPage = ({ company }: { company: Company }) => {
     <CompanyLayout>
       <Group noWrap position="apart" mb="md">
         <Title size={24}>Вакансии компании {company.name}</Title>
-        <Button onClick={() => router.push(Routes.CreateVacancyPage())}>Создать вакансию</Button>
+        <Button component={Link} href={Routes.CreateVacancyPage()}>
+          Создать вакансию
+        </Button>
       </Group>
       <CompanyVacancies company={company} />
     </CompanyLayout>
