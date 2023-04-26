@@ -9,14 +9,16 @@ const navigationItems = [
     route: Routes.VacanciesPage(),
   },
   {
+    label: "События",
+    route: Routes.EventsPage(),
+  },
+  {
     label: "Курсы",
     route: Routes.CoursesPage(),
   },
 ]
 
 const Navigation = () => {
-  const router = useRouter()
-
   return (
     <nav>
       <Group spacing="xs">

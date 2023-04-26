@@ -10,6 +10,7 @@ import {
   Menu,
   Stack,
   UnstyledButton,
+  Loader,
 } from "@mantine/core"
 import Link from "next/link"
 import logout from "src/auth/mutations/logout"
@@ -93,7 +94,7 @@ const Header = () => {
             </Link>
             <Navigation />
           </Group>
-          <Suspense>
+          <Suspense fallback={<Loader />}>
             <HeaderProfile />
           </Suspense>
         </Group>
