@@ -1,11 +1,23 @@
 import Layout from "src/core/layouts/Layout"
 import { BlitzPage } from "@blitzjs/next"
-import { Stack, Title, Group, Paper, Text, TextInput, Grid, Loader } from "@mantine/core"
+import {
+  Stack,
+  Title,
+  Group,
+  Paper,
+  Text,
+  TextInput,
+  Grid,
+  Loader,
+  Select,
+  MultiSelect,
+} from "@mantine/core"
 import { useQuery } from "@blitzjs/rpc"
 import VacancyCard, { ExtendedVacancy } from "src/vacancy/components/VacancyCard"
 import getVacancies from "src/vacancy/queries/getVacancies"
 import { Suspense } from "react"
 import { IconSearch } from "@tabler/icons-react"
+import { mockTags } from ".."
 
 const AllVacancies = () => {
   const [vacancies] = useQuery(getVacancies, {
@@ -36,6 +48,7 @@ const VacanciesPage: BlitzPage = () => {
               placeholder="Разработчик..."
               icon={<IconSearch size={16} />}
             />
+            <MultiSelect label="Фильтровать по тегам" data={mockTags} />
           </Paper>
         </Grid.Col>
         <Grid.Col span={9}>

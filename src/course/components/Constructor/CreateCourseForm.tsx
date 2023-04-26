@@ -15,6 +15,7 @@ import {
   COURSE_SHORT_DESC_MIN_LENGTH,
   COURSE_SHORT_DESC_MAX_LENGTH,
 } from "src/course/utils"
+import { useCurrentUser } from "src/users/hooks/useCurrentUser"
 
 const initialValues = {
   name: "",
@@ -31,25 +32,32 @@ const NewCourseForm: FC = () => {
     },
   })
 
+  const user = useCurrentUser()
+
   const [createCourseMutation, { isLoading: isCreating }] = useMutation(createCourse)
   const router = useRouter()
 
   const handleSubmit = form.onSubmit(async (data) => {
-    try {
-      const response = await createCourseMutation({
-        data,
-      })
-      await invalidateQuery(getCourses)
-      form.setValues(initialValues)
-      void router.push(Routes.EditCoursePage({ id: response.id }))
-    } catch (error) {
-      notifications.show({
-        withCloseButton: true,
-        autoClose: false,
-        title: "Что-то пошло не так при создании курса",
-        message: error?.toString?.(),
-        color: "red",
-      })
+    if (user?.company) {
+      try {
+        const response = await createCourseMutation({
+          data: {
+            ...data,
+            companyId: user.company.id,
+          },
+        })
+        await invalidateQuery(getCourses)
+        form.setValues(initialValues)
+        void router.push(Routes.EditCoursePage({ id: response.id }))
+      } catch (error) {
+        notifications.show({
+          withCloseButton: true,
+          autoClose: false,
+          title: "Что-то пошло не так при создании курса",
+          message: error?.toString?.(),
+          color: "red",
+        })
+      }
     }
   })
 

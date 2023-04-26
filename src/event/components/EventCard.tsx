@@ -3,6 +3,8 @@ import dayjs from "dayjs"
 import { supabase } from "lib/supabase"
 import { useRouter } from "next/router"
 import { ExtendedEvent } from "../types"
+import Link from "next/link"
+import { Routes } from "@blitzjs/next"
 
 const EventCard = ({ event }: { event: ExtendedEvent }) => {
   return (
@@ -35,7 +37,7 @@ const EventCard = ({ event }: { event: ExtendedEvent }) => {
           {dayjs(event.endDate).format("DD/MM/YYYY")}
         </Text>
       </Stack>
-      <Button mt="auto" mx="sm" mb="sm">
+      <Button component={Link} href={Routes.EventPage({ id: event.id })} mt="auto" mx="sm" mb="sm">
         Подробнее
       </Button>
     </Paper>

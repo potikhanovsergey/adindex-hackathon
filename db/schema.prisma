@@ -54,6 +54,7 @@ model Company {
   vacancies         Vacancy[] // Вакансии, созданные компанией
   userInvitations   UserInvitation[] // Приглашение пользователям по вакансиям
   recruiterRequests RecruiterRequest[] // Заявка пользователя на роль рекрутера компании
+  courses           Course[] // Курсы от компании
 }
 
 // Статус для приглашения или заявки по/на вакансию
@@ -269,6 +270,9 @@ model Course {
   demoVideoUrl     String?
 
   description String?
+
+  companyId Int     @default(0)
+  company   Company @relation(fields: [companyId], references: [id])
 
   sections    CourseSection[]
   enrollments CourseEnrollment[]

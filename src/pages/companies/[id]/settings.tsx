@@ -65,12 +65,12 @@ const CompanySettingsPage: BlitzPage = ({ company }: { company: Company }) => {
         <Stack>
           <TextInput
             label="Название"
-            placeholder="Outsude..."
+            placeholder="Outside..."
             {...form.getInputProps("name")}
             required
           />
           <TextInput
-            label="Электронна почта"
+            label="Электронная почта"
             placeholder="outsi@mail.ru"
             {...form.getInputProps("email")}
           />
@@ -78,19 +78,16 @@ const CompanySettingsPage: BlitzPage = ({ company }: { company: Company }) => {
             label="Ссылка на сайт"
             placeholder="https://..."
             {...form.getInputProps("websiteUrl")}
-            required
           />
           <TextInput
             label="Номер телефона"
             placeholder="8920..."
             {...form.getInputProps("phoneNumber")}
-            required
           />
           <TextInput
             label="Профиль в телеграме"
             placeholder="@outsi"
             {...form.getInputProps("telegramId")}
-            required
           />
 
           <Button type="submit" w="fit-content" mt="sm" loading={isCompanyUpdating}>

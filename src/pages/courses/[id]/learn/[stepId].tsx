@@ -25,7 +25,7 @@ const CourseLearn: BlitzPage<CourseStepPageInterface> = ({ step }) => {
           </Box>
         </ScrollArea.Autosize>
       ) : step.type == "video" ? (
-        <YouTube videoId="2g811Eo7K8U" opts={opts} style={{ aspectRatio: "16/9" }} />
+        <YouTube videoId={step.contentVideo?.url} opts={opts} style={{ aspectRatio: "16/9" }} />
       ) : (
         <></>
       )}

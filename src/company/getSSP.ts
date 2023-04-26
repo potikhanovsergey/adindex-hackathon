@@ -12,7 +12,10 @@ export const getCompanySSP = gSSP(async ({ params }) => {
   if (!isNaN(+id)) {
     company = await db.company.findFirst({
       where: { id: +id },
-      include: { vacancies: true, events: true },
+      include: {
+        vacancies: true,
+        events: { include: { tags: { include: { tag: true } }, company: true } },
+      },
     })
   }
 

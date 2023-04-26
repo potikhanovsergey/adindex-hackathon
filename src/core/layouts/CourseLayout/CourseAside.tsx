@@ -25,7 +25,6 @@ const CourseAside: FC<CoursePageProps> = ({ course }) => {
                 {`${section.steps.reduce((acc, step) => step.duration + acc, 0)} мин.`}
               </Group>
             }
-            icon={<Checkbox size="xs" />}
           >
             {section.steps.map((step) => (
               <NavLink
@@ -40,7 +39,6 @@ const CourseAside: FC<CoursePageProps> = ({ course }) => {
                     {`${step.duration} мин.`}
                   </Group>
                 }
-                icon={<Checkbox size="xs" />}
                 component={Link}
                 href={Routes.CourseLearn({ id: course.id, stepId: step.id })}
               />

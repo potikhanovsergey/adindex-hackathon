@@ -1,5 +1,5 @@
 import { BlitzPage, Routes } from "@blitzjs/next"
-import { Container, Title, Box, Center, SegmentedControl, Image } from "@mantine/core"
+import { Container, Title, Box, Center, SegmentedControl, Image, AspectRatio } from "@mantine/core"
 import { GetServerSideProps } from "next"
 import {
   IconInfoSquareFilled,
@@ -79,18 +79,19 @@ const EditEventPage: BlitzPage<EventPageProps> = ({ event }) => {
             <Title order={3} mb="sm">
               Превью события
             </Title>
-            <Image
-              mb="xs"
-              width={120}
-              height={120}
-              src={
-                event.previewImageUrl
-                  ? supabase.storage.from("images").getPublicUrl(event.previewImageUrl).data
-                      .publicUrl || ""
-                  : ""
-              }
-              alt={event.name}
-            />
+            <AspectRatio mb="xs" ratio={16 / 9} w={240}>
+              <Image
+                placeholder="Нет картинки"
+                src={
+                  event.previewImageUrl
+                    ? supabase.storage.from("images").getPublicUrl(event.previewImageUrl).data
+                        .publicUrl || undefined
+                    : undefined
+                }
+                alt=""
+              />
+            </AspectRatio>
+
             <UploadNewPhoto mb="xl" event={event} />
           </Box>
           <Box>

@@ -54,7 +54,7 @@ export default function Page404() {
           страница переехала на другой адрес.
         </Text>
         <Group position="center">
-          <Button variant="subtle" size="md" onClick={() => router.push(Routes.Home())}>
+          <Button variant="subtle" size="md" onClick={() => router.push(Routes.EventsPage())}>
             На главную страницу
           </Button>
         </Group>

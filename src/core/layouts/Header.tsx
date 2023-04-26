@@ -89,7 +89,7 @@ const Header = () => {
       <Container h="100%">
         <Group position="apart" h="100%" noWrap>
           <Group noWrap spacing="xl">
-            <Link href={Routes.Home()}>
+            <Link href={Routes.EventsPage()}>
               <Logo w={50} />
             </Link>
             <Navigation />

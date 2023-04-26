@@ -17,16 +17,16 @@ const cards: Omit<CourseStepTypeCardProps, "isActive">[] = [
     icon: getStepTypeIcon({ icon: CourseStepType.video, size: "1.5rem" }),
     slug: CourseStepType.video,
   },
-  {
-    description: "Создайте тест для проверки знаний участников курса",
-    icon: getStepTypeIcon({ icon: CourseStepType.test, size: "1.5rem" }),
-    slug: CourseStepType.test,
-  },
-  {
-    description: "Попросите участников оставить отзыв о курсе",
-    icon: getStepTypeIcon({ icon: CourseStepType.review, size: "1.5rem" }),
-    slug: CourseStepType.review,
-  },
+  // {
+  //   description: "Создайте тест для проверки знаний участников курса",
+  //   icon: getStepTypeIcon({ icon: CourseStepType.test, size: "1.5rem" }),
+  //   slug: CourseStepType.test,
+  // },
+  // {
+  //   description: "Попросите участников оставить отзыв о курсе",
+  //   icon: getStepTypeIcon({ icon: CourseStepType.review, size: "1.5rem" }),
+  //   slug: CourseStepType.review,
+  // },
 ]
 
 const CourseStepTypePicker: FC = () => {

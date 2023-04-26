@@ -8,10 +8,10 @@ export const getEventSSP = gSSP(async ({ params }) => {
   let event: ExtendedEvent | null = null
 
   if (!isNaN(+id)) {
-    event = await getEvent({
+    event = (await getEvent({
       where: { id: +id },
       include: { company: true, tags: { include: { tag: true } } },
-    })
+    })) as ExtendedEvent
   }
 
   if (!event) {

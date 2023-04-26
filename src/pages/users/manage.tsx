@@ -22,7 +22,7 @@ const ManageUsers = () => {
 
   useEffect(() => {
     if (session.role !== "ADMIN") {
-      void router.push(Routes.Home().href)
+      void router.push(Routes.EventsPage().href)
     }
   }, [session])
 

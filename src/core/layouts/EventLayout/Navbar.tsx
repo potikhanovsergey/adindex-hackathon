@@ -10,10 +10,10 @@ const EventNavbar: FC = () => {
     <Navbar px="sm" py="md" width={{ base: 256 }}>
       <ScrollArea>
         <Button
+          fullWidth
           component={Link}
           href={Routes.CreateEventPage()}
           variant="outline"
-          w="fit-content"
           rightIcon={<IconPlus size="1rem" />}
           mb="md"
         >

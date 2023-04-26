@@ -33,6 +33,12 @@ const BubbleTheme: MantineThemeOverride = {
     DateInput: {
       defaultProps: {
         locale: "ru",
+        size: "xs",
+      },
+    },
+    MultiSelect: {
+      defaultProps: {
+        size: "xs",
       },
     },
     AppShell: {
