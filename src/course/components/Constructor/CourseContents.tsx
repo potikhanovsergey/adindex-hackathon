@@ -11,6 +11,7 @@ import {
   Stack,
   Text,
   Title,
+  Tooltip,
 } from "@mantine/core"
 import { FC, ReactNode } from "react"
 import AddCourseSectionButton from "./AddCourseSectionButton"
@@ -39,9 +40,11 @@ const AccordionControl: FC<
         )}
         <Menu position="left">
           <Menu.Target>
-            <ActionIcon>
-              <IconDots size="1rem" />
-            </ActionIcon>
+            <Tooltip label="Настройки">
+              <ActionIcon>
+                <IconDots size="1rem" />
+              </ActionIcon>
+            </Tooltip>
           </Menu.Target>
           <Menu.Dropdown>
             <Menu.Item color="red">Удалить секцию</Menu.Item>

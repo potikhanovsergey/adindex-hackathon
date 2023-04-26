@@ -63,7 +63,7 @@ const HeaderProfile = () => {
           </>
         )}
 
-        <Menu.Item component={Link} href={Routes.ProfileInfoPage({ id: user.id })}>
+        <Menu.Item component={Link} href={Routes.ProfileSettings({ id: user.id })}>
           Перейти в профиль
         </Menu.Item>
         <Menu.Item color="red" onClick={() => logoutMutation()}>
