@@ -4,6 +4,7 @@ import { useForm } from "@mantine/form"
 import { User } from "@prisma/client"
 import { GetServerSideProps } from "next"
 import ProfileLayout from "src/core/layouts/ProfileLayout"
+import UploadNewPhoto from "src/users/components/UploadNewPhoto"
 import { getUserSSP } from "src/users/getSSP"
 import updateUser from "src/users/mutations/updateUser"
 import getUsers from "src/users/queries/getUsers"
@@ -35,6 +36,7 @@ const ProfileSettings = ({ user }: { user: User }) => {
 
   return (
     <ProfileLayout>
+      <UploadNewPhoto user={user} my="md" />
       <form
         onSubmit={form.onSubmit(async (values) => {
           try {

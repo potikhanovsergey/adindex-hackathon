@@ -43,6 +43,10 @@ const BubbleTheme: MantineThemeOverride = {
       },
     },
     Avatar: {
+      defaultProps: {
+        variant: "outline",
+        color: "dark",
+      },
       variants: {
         outline: (theme) => ({
           placeholder: {

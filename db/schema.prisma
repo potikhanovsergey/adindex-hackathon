@@ -107,6 +107,8 @@ model User {
   hashedPassword String?
   role           Role     @default(USER)
 
+  avatarUrl String?
+
   companyId          Int? // Если юзер относится к компании, он становится рекрутером компании
   company            Company?               @relation(fields: [companyId], references: [id])
   tokens             Token[]

@@ -9,6 +9,7 @@ import {
   Avatar,
   Menu,
   Stack,
+  UnstyledButton,
 } from "@mantine/core"
 import Link from "next/link"
 import logout from "src/auth/mutations/logout"
@@ -16,6 +17,7 @@ import { Suspense } from "react"
 import { useCurrentUser } from "src/users/hooks/useCurrentUser"
 import Navigation from "./Navigation"
 import Logo from "./Logo"
+import UserAvatar from "../components/UserAvatar"
 
 const HeaderProfile = () => {
   const user = useCurrentUser()
@@ -28,9 +30,9 @@ const HeaderProfile = () => {
   return user ? (
     <Menu withinPortal>
       <Menu.Target>
-        <Avatar alt="Avatar" color="dark" variant="outline" sx={{ cursor: "pointer" }}>
-          {user.firstName[0]} {user.lastName[0]}
-        </Avatar>
+        <UnstyledButton>
+          <UserAvatar user={user} alt="Avatar" />
+        </UnstyledButton>
       </Menu.Target>
 
       <Menu.Dropdown>
