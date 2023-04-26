@@ -332,6 +332,11 @@ const BubbleTheme: MantineThemeOverride = {
         size: "xs",
       },
     },
+    Modal: {
+      defaultProps: {
+        centered: true,
+      },
+    },
   },
 
   globalStyles: (theme) => ({

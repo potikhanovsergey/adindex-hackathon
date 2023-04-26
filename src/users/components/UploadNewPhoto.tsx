@@ -2,7 +2,7 @@ import { invalidateQuery, useMutation } from "@blitzjs/rpc"
 import { Button, ButtonProps, FileButton } from "@mantine/core"
 import { User } from "@prisma/client"
 import { supabase } from "lib/supabase"
-import { FC, useEffect, useState } from "react"
+import { FC, useCallback, useEffect, useState } from "react"
 import updateUser from "../mutations/updateUser"
 import getCurrentUser from "../queries/getCurrentUser"
 import { notifications } from "@mantine/notifications"
@@ -16,35 +16,38 @@ const UploadNewPhoto: FC<UploadNewPhotoProps> = ({ user, ...props }) => {
   const [updateUserMutation] = useMutation(updateUser)
   const [isLoading, setIsLoading] = useState(false)
 
-  const uploadFile = async (file: File) => {
-    setIsLoading(true)
-    const { data } = await supabase.storage
-      .from("images")
-      .upload(`avatars/${user.id}-${new Date().getTime()}.png`, file, {
-        cacheControl: "3600",
-        upsert: true,
-      })
+  const uploadFile = useCallback(
+    async (file: File) => {
+      setIsLoading(true)
+      const { data } = await supabase.storage
+        .from("images")
+        .upload(`avatars/${user.id}-${new Date().getTime()}.png`, file, {
+          cacheControl: "3600",
+          upsert: true,
+        })
 
-    if (data?.path) {
-      await updateUserMutation({
-        where: { id: user.id },
-        data: {
-          avatarUrl: data.path,
-        },
-      })
-      user.avatarUrl && void supabase.storage.from("images").remove([user.avatarUrl])
-      await invalidateQuery(getCurrentUser)
-      notifications.show({
-        withCloseButton: true,
-        autoClose: 5000,
-        title: "Новый аватар успешно загружен!",
-        message: "Он будет виден в публичном профиле, событиях, курсах и заявках вакансий.",
-        color: "green",
-      })
-    }
-    setIsLoading(false)
-    setFile(null)
-  }
+      if (data?.path) {
+        await updateUserMutation({
+          where: { id: user.id },
+          data: {
+            avatarUrl: data.path,
+          },
+        })
+        user.avatarUrl && (await supabase.storage.from("images").remove([user.avatarUrl]))
+        await invalidateQuery(getCurrentUser)
+        notifications.show({
+          withCloseButton: true,
+          autoClose: 5000,
+          title: "Новый аватар успешно загружен!",
+          message: "Он будет виден в публичном профиле, событиях, курсах и заявках вакансий.",
+          color: "green",
+        })
+      }
+      setIsLoading(false)
+      setFile(null)
+    },
+    [user.avatarUrl]
+  )
 
   useEffect(() => {
     if (file) {

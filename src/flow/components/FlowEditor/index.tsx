@@ -31,42 +31,42 @@ const FlowEditor: FC<FlowEditorProps> = (props) => {
     if (flowInstance) {
       const flow = flowInstance.toObject()
 
-      const response = await updateFlowMutation({
-        where: {
-          id: props.flowId,
-        },
-        data: {
-          viewport: {
-            create: flow.viewport,
-          },
-          edges: {
-            deleteMany: {
-              flowId: props.flowId,
-            },
-            create: flow.edges.map((edge) => ({
-              source: edge.source,
-              target: edge.target,
-              connectionId: edge.id,
-            })),
-          },
-          nodes: {
-            deleteMany: {
-              flowId: props.flowId,
-            },
-            create: flow.nodes.map((node) => ({
-              nodeId: +node.id,
-              x: node.position.x,
-              y: node.position.y,
-              title: node.data.title,
-              subline: node.data.subline,
-            })),
-          },
-        },
-        include: {
-          edges: true,
-          nodes: true,
-        },
-      })
+      // const response = await updateFlowMutation({
+      //   where: {
+      //     id: props.flowId,
+      //   },
+      //   data: {
+      //     viewport: {
+      //       create: flow.viewport,
+      //     },
+      //     edges: {
+      //       deleteMany: {
+      //         flowId: props.flowId,
+      //       },
+      //       create: flow.edges.map((edge) => ({
+      //         source: edge.source,
+      //         target: edge.target,
+      //         connectionId: edge.id,
+      //       })),
+      //     },
+      //     nodes: {
+      //       deleteMany: {
+      //         flowId: props.flowId,
+      //       },
+      //       create: flow.nodes.map((node) => ({
+      //         nodeId: +node.id,
+      //         x: node.position.x,
+      //         y: node.position.y,
+      //         title: node.data.title,
+      //         subline: node.data.subline,
+      //       })),
+      //     },
+      //   },
+      //   include: {
+      //     edges: true,
+      //     nodes: true,
+      //   },
+      // })
 
       await invalidateQuery(getFlows)
     }
