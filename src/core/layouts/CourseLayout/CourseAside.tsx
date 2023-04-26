@@ -12,7 +12,7 @@ const CourseAside: FC<CoursePageProps> = ({ course }) => {
   const stepId = useParam("stepId")
 
   return (
-    <Aside width={{ base: 256 }}>
+    <Aside fixed width={{ base: 256 }}>
       {course.sections.map((section) =>
         section.steps.length > 0 ? (
           <NavLink

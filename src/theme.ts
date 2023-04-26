@@ -71,6 +71,7 @@ const BubbleTheme: MantineThemeOverride = {
     Divider: {
       defaultProps: {
         size: "sm",
+        color: "dark",
       },
     },
     Button: {

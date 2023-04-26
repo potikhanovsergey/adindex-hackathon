@@ -1,6 +1,6 @@
 import Layout from "src/core/layouts/Layout"
 import { BlitzPage } from "@blitzjs/next"
-import { Stack, Title, Group, Paper, Text, TextInput } from "@mantine/core"
+import { Stack, Title, Group, Paper, Text, TextInput, Grid } from "@mantine/core"
 import { useQuery } from "@blitzjs/rpc"
 import VacancyCard, { ExtendedVacancy } from "src/vacancy/components/VacancyCard"
 import getVacancies from "src/vacancy/queries/getVacancies"
@@ -27,19 +27,23 @@ const VacanciesPage: BlitzPage = () => {
   return (
     <Layout>
       <Title mb="md">Вакансии</Title>
-      <Group noWrap align="flex-start">
-        <Paper p="sm">
-          <Text>Фильтры</Text>
-          <TextInput
-            label="Поиск по названию"
-            placeholder="Разработчик..."
-            icon={<IconSearch size={16} />}
-          />
-        </Paper>
-        <Suspense>
-          <AllVacancies />
-        </Suspense>
-      </Group>
+      <Grid>
+        <Grid.Col span={3}>
+          <Paper p="sm">
+            <Text>Фильтры</Text>
+            <TextInput
+              label="Поиск по названию"
+              placeholder="Разработчик..."
+              icon={<IconSearch size={16} />}
+            />
+          </Paper>
+        </Grid.Col>
+        <Grid.Col span={9}>
+          <Suspense>
+            <AllVacancies />
+          </Suspense>
+        </Grid.Col>
+      </Grid>
     </Layout>
   )
 }

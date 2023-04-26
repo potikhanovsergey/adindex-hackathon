@@ -61,7 +61,6 @@ const CourseLayout: FC<CourseLayoutProps> = ({ children, step }) => {
       }}
       aside={<CourseAside course={step.section.course} />}
       header={<Header />}
-      footer={<Footer />}
     >
       <Box sx={{ position: "relative" }}>
         <Container px={64}>
