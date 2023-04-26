@@ -1,10 +1,14 @@
 import { Routes } from "@blitzjs/next"
 import { Paper, Image, Stack, Text, Group, Button, Badge } from "@mantine/core"
-import { Course } from "@prisma/client"
+import { Course, CourseTagLink, Tag } from "@prisma/client"
 import { IconChartBar, IconClockHour5 } from "@tabler/icons-react"
 import { useRouter } from "next/router"
 
-const CourseCard = ({ course }: { course: Course }) => {
+const CourseCard = ({
+  course,
+}: {
+  course: Course & { tags: (CourseTagLink & { tag: Tag })[] }
+}) => {
   const router = useRouter()
 
   return (
