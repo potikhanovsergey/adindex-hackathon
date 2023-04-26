@@ -8,19 +8,21 @@ import RootErrorFallback from "src/core/components/RootErrorFallback"
 import "src/flow/components/Flow/index.css"
 import { ModalsProvider } from "@mantine/modals"
 import FontProvider from "src/core/components/FontProvider"
+import { Notifications } from "@mantine/notifications"
 
 const App: FC<AppProps> = ({ Component, pageProps }) => {
   const getLayout = Component.getLayout || ((page) => page)
   return (
     <ErrorBoundary FallbackComponent={RootErrorFallback}>
-      <MantineProvider withGlobalStyles withNormalizeCSS theme={theme}>
-        <FontProvider>
+      <FontProvider>
+        <MantineProvider withGlobalStyles withNormalizeCSS theme={theme}>
           <ModalsProvider>
+            <Notifications />
             <PageProgress />
             {getLayout(<Component {...pageProps} />)}
           </ModalsProvider>
-        </FontProvider>
-      </MantineProvider>
+        </MantineProvider>
+      </FontProvider>
     </ErrorBoundary>
   )
 }

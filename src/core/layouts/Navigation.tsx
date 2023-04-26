@@ -19,7 +19,7 @@ const Navigation = () => {
 
   return (
     <nav>
-      <Group spacing="xl">
+      <Group spacing="xs">
         {navigationItems.map((navItem) => (
           <Button component={Link} variant="subtle" key={navItem.label} href={navItem.route}>
             {navItem.label}

@@ -65,10 +65,10 @@ const SignupForm = () => {
       <form onSubmit={handleSubmit}>
         <Paper p={30} mt={30}>
           <Stack spacing="xs">
-            <TextInput label="Имя" {...form.getInputProps("firstName")} required />
-            <TextInput label="Фамилия" {...form.getInputProps("lastName")} required />
-            <TextInput label="Отчество" {...form.getInputProps("patronymic")} />
             <TextInput label="Почта" {...form.getInputProps("email")} required />
+            <TextInput label="Фамилия" {...form.getInputProps("lastName")} required />
+            <TextInput label="Имя" {...form.getInputProps("firstName")} required />
+            <TextInput label="Отчество" {...form.getInputProps("patronymic")} />
             <PasswordInput label="Пароль" {...form.getInputProps("password")} required />
           </Stack>
           <Button fullWidth mt="xl" type="submit">

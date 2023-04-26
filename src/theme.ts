@@ -37,6 +37,38 @@ const BubbleTheme: MantineThemeOverride = {
         },
       }),
     },
+    Tooltip: {
+      defaultProps: {
+        withArrow: true,
+      },
+    },
+    Avatar: {
+      variants: {
+        outline: (theme) => ({
+          placeholder: {
+            borderWidth: rem(2),
+          },
+        }),
+      },
+    },
+    Notification: {
+      defaultProps: {
+        withBorder: true,
+      },
+      styles: (theme) => ({
+        root: {
+          paddingLeft: theme.spacing.xl,
+          "&[data-with-border]": {
+            border: `${rem(2)} solid ${theme.black}`,
+          },
+        },
+      }),
+    },
+    Divider: {
+      defaultProps: {
+        size: "sm",
+      },
+    },
     Button: {
       defaultProps: () => ({
         loaderPosition: "center",
@@ -210,11 +242,11 @@ const BubbleTheme: MantineThemeOverride = {
       },
     },
     Navbar: {
-      styles: {
+      styles: (theme) => ({
         root: {
-          // border: 0,
+          borderRight: `${rem(2)} solid ${theme.black}`,
         },
-      },
+      }),
     },
     NavLink: {
       defaultProps: (theme) => ({
@@ -224,9 +256,30 @@ const BubbleTheme: MantineThemeOverride = {
     Header: {
       styles: (theme) => ({
         root: {
-          // borderBottom: 0,
+          borderBottom: `${rem(2)} solid ${theme.black}`,
           background: theme.fn.rgba(theme.white, 0.7),
           backdropFilter: "blur(12px)",
+        },
+      }),
+    },
+    Menu: {
+      styles: (theme) => ({
+        dropdown: {
+          border: `${rem(2)} solid ${theme.black}`,
+        },
+        divider: {
+          borderTop: `${rem(2)} solid ${theme.black}`,
+        },
+      }),
+    },
+    RichTextEditor: {
+      styles: (theme) => ({
+        root: {
+          border: `${rem(2)} solid ${theme.black}`,
+        },
+        toolbar: {
+          borderBottom: `${rem(2)} solid ${theme.black}`,
+          top: "var(--mantine-header-height)",
         },
       }),
     },

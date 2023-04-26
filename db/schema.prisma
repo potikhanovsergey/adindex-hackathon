@@ -32,18 +32,21 @@ model RecruiterRequest {
 enum CompanyStatus {
   verified
   unverified
+  rejected
 }
 
 model Company {
   id   Int    @id @default(autoincrement())
   name String @unique // Название компании
 
-  status CompanyStatus
+  status CompanyStatus @default(unverified)
 
   websiteUrl  String?
   email       String?
   telegramId  String?
   phoneNumber String?
+
+  verificationRejectReason String?
 
   description       String? // Описание компании (RichText)
   recruiters        User[] // Рекрутеры компании (могут создавать курсы, события, вакансии, отправлять приглашения на вакансии, принимать заявки)

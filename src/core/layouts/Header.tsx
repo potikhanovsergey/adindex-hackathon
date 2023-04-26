@@ -22,13 +22,15 @@ const HeaderProfile = () => {
   const [logoutMutation] = useMutation(logout)
 
   const fullName = user
-    ? [user.firstName, user.lastName, user.patronymic].filter(Boolean).join(" ")
+    ? [user.lastName, user.firstName, user.patronymic].filter(Boolean).join(" ")
     : null
 
   return user ? (
     <Menu withinPortal>
       <Menu.Target>
-        <Avatar alt="Avatar" sx={{ cursor: "pointer" }} />
+        <Avatar alt="Avatar" color="dark" variant="outline" sx={{ cursor: "pointer" }}>
+          {user.firstName[0]} {user.lastName[0]}
+        </Avatar>
       </Menu.Target>
 
       <Menu.Dropdown>
