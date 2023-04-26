@@ -9,6 +9,10 @@ const PROFILE_SUBLINKS = [
     label: "Редактирование профиля",
     slug: "settings",
   },
+  {
+    label: "Достижения",
+    slug: "achievements",
+  },
 ]
 
 const ProfileNavbar: FC = () => {

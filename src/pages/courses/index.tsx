@@ -5,14 +5,18 @@ import { useQuery } from "@blitzjs/rpc"
 import getCourses from "src/course/queries/getCourses"
 import CourseCard from "src/course/components/CourseCard"
 import { Suspense } from "react"
+import { Course, CourseTagLink, Tag } from "db"
 
 const Courses = () => {
-  const [courses] = useQuery(getCourses, {})
+  const [courses] = useQuery(getCourses, { include: { tags: { include: { tag: true } } } })
 
   return (
     <SimpleGrid cols={4} spacing={40}>
       {courses.map((course) => (
-        <CourseCard key={course.id} course={course} />
+        <CourseCard
+          key={course.id}
+          course={course as Course & { tags: (CourseTagLink & { tag: Tag })[] }}
+        />
       ))}
     </SimpleGrid>
   )

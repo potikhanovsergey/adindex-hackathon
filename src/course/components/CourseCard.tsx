@@ -1,11 +1,14 @@
 import { Routes } from "@blitzjs/next"
-import { Paper, Image, Stack, Text, Group, Button } from "@mantine/core"
-import { Course } from "@prisma/client"
+import { Paper, Image, Stack, Text, Group, Button, Badge } from "@mantine/core"
+import { Course, CourseTagLink, Tag } from "@prisma/client"
 import { IconChartBar, IconClockHour5 } from "@tabler/icons-react"
 import { useRouter } from "next/router"
-import Logo from "src/core/layouts/Logo"
 
-const CourseCard = ({ course }: { course: Course }) => {
+const CourseCard = ({
+  course,
+}: {
+  course: Course & { tags: (CourseTagLink & { tag: Tag })[] }
+}) => {
   const router = useRouter()
 
   return (
@@ -18,9 +21,16 @@ const CourseCard = ({ course }: { course: Course }) => {
         alt="course preview"
       />
       <Stack p="sm" spacing={0}>
-        <Text weight="bold" mb="sm">
-          {course.name}
-        </Text>
+        <Group mb="sm">
+          <Text weight="bold">{course.name}</Text>
+
+          {course.tags.map((tag) => (
+            <Badge key={tag.tagId}>
+              {tag.tag.name} {tag.power}
+            </Badge>
+          ))}
+        </Group>
+
         <Group noWrap spacing="xs">
           <IconChartBar color="red" stroke={1.5} size={16} />
           <Text size="sm">Уровень сложности: высокий</Text>

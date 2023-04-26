@@ -16,6 +16,10 @@ const navigationItems = [
     label: "Курсы",
     route: Routes.CoursesPage(),
   },
+  {
+    label: "Лидерборд",
+    route: Routes.LeaderBoard(),
+  },
 ]
 
 const Navigation = () => {
