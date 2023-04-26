@@ -6,5 +6,4 @@ export interface ExtendedFlow extends Flow {
     course: Course
   })[]
   edges: Edge[]
-  profession: Profession
 }

@@ -53,7 +53,7 @@ const HeaderProfile = () => {
           </>
         )}
 
-        {user.role === "RECRUITER" && (
+        {user.companyId && (
           <>
             <Menu.Item component={Link} href={Routes.CompanySettingsPage({ id: user.companyId })}>
               {user.company.name}

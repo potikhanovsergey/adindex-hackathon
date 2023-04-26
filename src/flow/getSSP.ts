@@ -19,7 +19,6 @@ export const getFlowSSP = gSSP(async ({ params }) => {
           },
         },
         edges: true,
-        profession: true,
       },
     })
   }

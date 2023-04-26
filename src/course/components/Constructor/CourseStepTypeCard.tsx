@@ -26,8 +26,8 @@ const CourseStepTypeCard: FC<CourseStepTypeCardProps> = ({
         sx={
           isActive
             ? {
-                background: theme.colors.gray[2],
-                borderColor: theme.colors.green[5] + "!important",
+                background: theme.colors.yellow[0],
+                borderColor: theme.colors.yellow[3] + "!important",
               }
             : undefined
         }

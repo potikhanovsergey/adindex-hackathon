@@ -1,4 +1,3 @@
-import { useSession } from "@blitzjs/auth"
 import { useMutation } from "@blitzjs/rpc"
 import {
   Box,
@@ -15,7 +14,7 @@ import { useForm } from "@mantine/form"
 import { useEditor } from "@tiptap/react"
 import { FC } from "react"
 import RichTextarea, { RichTextareaExtensions } from "src/core/components/RichTextarea"
-import { Company, VacancyStatus } from "@prisma/client"
+import { VacancyStatus } from "@prisma/client"
 import { notifications } from "@mantine/notifications"
 import createVacancy from "../mutations/createVacancy"
 import { useCurrentUser } from "src/users/hooks/useCurrentUser"
@@ -47,6 +46,7 @@ const CreateVacancyForm: FC = () => {
         await createVacancyMutation({
           data: {
             ...values,
+            salary: +values.salary,
             description: editor?.getHTML() || "",
             status: VacancyStatus.OPENED,
             companyId: user.company.id,

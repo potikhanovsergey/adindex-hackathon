@@ -20,7 +20,7 @@ const Courses = () => {
 
 const CoursesPage: BlitzPage = () => {
   return (
-    <Layout title="Курсы">
+    <Layout>
       <Title mb={48}>Все курсы</Title>
       <Suspense>
         <Courses />

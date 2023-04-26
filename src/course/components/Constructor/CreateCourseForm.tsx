@@ -1,8 +1,12 @@
-import { useMutation } from "@blitzjs/rpc"
+import { Routes } from "@blitzjs/next"
+import { invalidateQuery, useMutation } from "@blitzjs/rpc"
 import { Button, Stack, TextInput } from "@mantine/core"
 import { useForm } from "@mantine/form"
+import { notifications } from "@mantine/notifications"
+import { useRouter } from "next/router"
 import { FC } from "react"
 import createCourse from "src/course/mutations/createCourse"
+import getCourses from "src/course/queries/getCourses"
 import {
   validateCourseName,
   validateCourseShortDescription,
@@ -12,12 +16,14 @@ import {
   COURSE_SHORT_DESC_MAX_LENGTH,
 } from "src/course/utils"
 
+const initialValues = {
+  name: "",
+  shortDescription: "",
+}
+
 const NewCourseForm: FC = () => {
   const form = useForm({
-    initialValues: {
-      name: "",
-      shortDescription: "",
-    },
+    initialValues,
 
     validate: {
       name: validateCourseName,
@@ -26,11 +32,25 @@ const NewCourseForm: FC = () => {
   })
 
   const [createCourseMutation, { isLoading: isCreating }] = useMutation(createCourse)
+  const router = useRouter()
 
   const handleSubmit = form.onSubmit(async (data) => {
-    const response = await createCourseMutation({
-      data,
-    })
+    try {
+      const response = await createCourseMutation({
+        data,
+      })
+      await invalidateQuery(getCourses)
+      form.setValues(initialValues)
+      void router.push(Routes.EditCoursePage({ id: response.id }))
+    } catch (error) {
+      notifications.show({
+        withCloseButton: true,
+        autoClose: false,
+        title: "Что-то пошло не так при создании курса",
+        message: error?.toString?.(),
+        color: "red",
+      })
+    }
   })
 
   return (
