@@ -1,14 +1,11 @@
 import { FC } from "react"
-import { Navbar, NavLink } from "@mantine/core"
+import { Group, Navbar, NavLink, Text } from "@mantine/core"
 import { useParam } from "@blitzjs/next"
 import { useRouter } from "next/router"
 import Link from "next/link"
+import { IconExternalLink } from "@tabler/icons-react"
 
 const COMPANY_SUBLINKS = [
-  {
-    label: "Публичный профиль компании",
-    slug: "info",
-  },
   {
     label: "Редактирование профиля компании",
     slug: "settings",
@@ -34,6 +31,12 @@ const CompanyNavbar: FC = () => {
 
   return (
     <Navbar width={{ base: 256 }}>
+      <NavLink
+        label="Публичный профиль"
+        description="Вы перейдете на страницу профиля компании"
+        component={Link}
+        href={`/companies/${param}`}
+      />
       {COMPANY_SUBLINKS.map((sublink) => (
         <NavLink
           active={router.asPath === `/companies/${param}/${sublink.slug}`}

@@ -55,8 +55,8 @@ const HeaderProfile = () => {
 
         {user.companyId && (
           <>
-            <Menu.Item component={Link} href={Routes.CompanyInfoPage({ id: user.companyId })}>
-              Профиль компании
+            <Menu.Item component={Link} href={Routes.CompanySettingsPage({ id: user.companyId })}>
+              {user.company.name}
             </Menu.Item>
             <Menu.Divider />
           </>

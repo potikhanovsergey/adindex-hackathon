@@ -1,18 +1,13 @@
 import { BlitzPage } from "@blitzjs/auth"
-import { Title } from "@mantine/core"
-import { Company, User } from "@prisma/client"
-import { GetServerSideProps } from "next"
 import CompanyLayout from "src/core/layouts/CompanyLayout"
-import { getCompanySSP } from "src/company/getSSP"
+import CompanyProfilePage from "."
 
-const CompanyInfoPage: BlitzPage = ({ company }: { company: Company }) => {
+const CompanyInfoPage: BlitzPage = () => {
   return (
     <CompanyLayout>
-      <Title>{company.name}</Title>
+      <CompanyProfilePage />
     </CompanyLayout>
   )
 }
 
 export default CompanyInfoPage
-
-export const getServerSideProps: GetServerSideProps = getCompanySSP

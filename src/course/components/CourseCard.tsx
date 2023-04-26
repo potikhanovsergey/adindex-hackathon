@@ -3,13 +3,20 @@ import { Paper, Image, Stack, Text, Group, Button } from "@mantine/core"
 import { Course } from "@prisma/client"
 import { IconChartBar, IconClockHour5 } from "@tabler/icons-react"
 import { useRouter } from "next/router"
+import Logo from "src/core/layouts/Logo"
 
 const CourseCard = ({ course }: { course: Course }) => {
   const router = useRouter()
 
   return (
     <Paper p={0} display="flex" sx={{ flexDirection: "column" }}>
-      <Image src={course.previewImageUrl} alt="course preview" />
+      <Image
+        src={
+          course.previewImageUrl ||
+          "https://matchboxbootcamp.com/assets/frontend/images/courseplaceholder.png"
+        }
+        alt="course preview"
+      />
       <Stack p="sm" spacing={0}>
         <Text weight="bold" mb="sm">
           {course.name}
