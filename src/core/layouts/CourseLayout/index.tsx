@@ -7,7 +7,6 @@ import CourseTabs from "./CourseTabs"
 import { Routes } from "@blitzjs/next"
 import { IconChevronLeft, IconChevronRight } from "@tabler/icons-react"
 import Link from "next/link"
-import Footer from "../Footer"
 
 interface CourseLayoutProps {
   children: ReactNode
