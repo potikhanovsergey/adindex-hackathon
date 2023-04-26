@@ -1,7 +1,6 @@
 import { Routes } from "@blitzjs/next"
 import { invalidateQuery, useMutation } from "@blitzjs/rpc"
 import { Paper, Stack, Group, Button, Image, Text, Tooltip, Box } from "@mantine/core"
-import { Course, User } from "@prisma/client"
 import { IconVideo, IconArticle, IconPencil, IconCertificate } from "@tabler/icons-react"
 import Link from "next/link"
 import { useRouter } from "next/router"
@@ -75,11 +74,8 @@ const CourseInfoCard = ({ course }: { course: ExtendedCourse }) => {
         {isUserEnrolled ? (
           <Button
             mt="md"
-            onClick={() =>
-              router.push(
-                Routes.CourseLearn({ id: course.id, stepId: course.sections[0].steps[0].id })
-              )
-            }
+            component={Link}
+            href={Routes.CourseLearn({ id: course.id, stepId: course.sections[0]?.steps[0].id })}
           >
             Перейти к курсу
           </Button>

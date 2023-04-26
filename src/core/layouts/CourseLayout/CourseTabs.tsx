@@ -16,7 +16,6 @@ const CourseTabs = () => {
         onChange={setChosenTab}
         data={[
           { label: "Описание задачи", value: "description" },
-          { label: "Комментарии", value: "comments" },
           { label: "Дополнительные материалы", value: "resources" },
         ]}
       />

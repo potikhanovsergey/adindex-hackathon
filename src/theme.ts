@@ -252,6 +252,13 @@ const BubbleTheme: MantineThemeOverride = {
         },
       }),
     },
+    Aside: {
+      styles: (theme) => ({
+        root: {
+          borderLeft: `${rem(2)} solid ${theme.black}`,
+        },
+      }),
+    },
     NavLink: {
       defaultProps: (theme) => ({
         variant: "subtle",
