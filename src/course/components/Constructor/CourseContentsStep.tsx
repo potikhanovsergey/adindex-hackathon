@@ -1,4 +1,4 @@
-import { Paper, Text, Group, Badge, Center, ActionIcon, Menu, Button } from "@mantine/core"
+import { Paper, Text, Group, Badge, Center, ActionIcon, Menu, Button, Tooltip } from "@mantine/core"
 import {
   IconClockHour4,
   IconArrowUp,
@@ -104,21 +104,27 @@ const CourseContentsStep: FC<
 
         <Group noWrap spacing={4}>
           {i !== 0 && (
-            <ActionIcon>
-              <IconArrowUp size="1rem" />
-            </ActionIcon>
+            <Tooltip label="Выше">
+              <ActionIcon>
+                <IconArrowUp size="1rem" />
+              </ActionIcon>
+            </Tooltip>
           )}
 
           {i !== section.steps.length - 1 && (
-            <ActionIcon>
-              <IconArrowDown size="1rem" />
-            </ActionIcon>
+            <Tooltip label="Ниже">
+              <ActionIcon>
+                <IconArrowDown size="1rem" />
+              </ActionIcon>
+            </Tooltip>
           )}
           <Menu position="left">
             <Menu.Target>
-              <ActionIcon>
-                <IconDots size="1rem" />
-              </ActionIcon>
+              <Tooltip label="Настройки">
+                <ActionIcon>
+                  <IconDots size="1rem" />
+                </ActionIcon>
+              </Tooltip>
             </Menu.Target>
             <Menu.Dropdown>
               <Menu.Item onClick={handleEditClick} icon={<IconPencil size="1rem" />}>
