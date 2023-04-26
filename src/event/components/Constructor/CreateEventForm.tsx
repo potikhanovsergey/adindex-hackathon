@@ -3,7 +3,7 @@ import { Button, Select, Stack, TextInput } from "@mantine/core"
 import { DateInput } from "@mantine/dates"
 import { useForm } from "@mantine/form"
 import { notifications } from "@mantine/notifications"
-import { EventType } from "db"
+import { EventType } from "@prisma/client"
 import { useRouter } from "next/router"
 import { FC } from "react"
 import createEvent from "src/event/mutations/createEvent"
@@ -12,7 +12,7 @@ import { EVENT_TYPE_DATA } from "src/event/utils"
 import { useCurrentUser } from "src/users/hooks/useCurrentUser"
 
 const initialValues = {
-  type: null as EventType | null,
+  type: null as string | null,
   name: "",
   startDate: null as Date | null,
   endDate: null as Date | null,
@@ -37,7 +37,7 @@ const CreateEventForm: FC = () => {
             name: data.name,
             startDate: data.startDate,
             endDate: data.startDate,
-            type: data.type,
+            type: data.type as EventType,
             companyId: user.company.id,
           },
         })
