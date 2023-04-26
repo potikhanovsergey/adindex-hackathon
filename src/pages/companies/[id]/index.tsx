@@ -1,14 +1,14 @@
 import { BlitzPage } from "@blitzjs/next"
 import { Container, Title, Text } from "@mantine/core"
-import { Company } from "@prisma/client"
 import { GetServerSideProps } from "next"
 import { Suspense } from "react"
 import CompanyProfileHeader from "src/company/components/CompanyProfileHeader"
 import CompanyVacancies from "src/company/components/CompanyVacancies"
 import { getCompanySSP } from "src/company/getSSP"
+import { ExtendedCompany } from "src/company/types"
 import Layout from "src/core/layouts/Layout"
 
-const CompanyProfilePage: BlitzPage = ({ company }: { company: Company }) => {
+const CompanyProfilePage: BlitzPage = ({ company }: { company: ExtendedCompany }) => {
   return (
     <Layout>
       <Container my="xl">

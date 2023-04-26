@@ -2,11 +2,10 @@ import { useMutation } from "@blitzjs/rpc"
 import { Button, Select, Stack, TextInput } from "@mantine/core"
 import { DateInput } from "@mantine/dates"
 import { useForm } from "@mantine/form"
-import { EventStatus } from "@prisma/client"
 import { FC, useEffect } from "react"
 import updateEvent from "src/event/mutations/updateEvent"
+import { EventPageProps } from "src/event/types"
 import { EVENT_STATUS_DATA, EVENT_TYPE_DATA } from "src/event/utils"
-import { EventPageProps } from "src/pages/events/types"
 
 const EditEventForm: FC<EventPageProps> = ({ event }) => {
   const form = useForm()
