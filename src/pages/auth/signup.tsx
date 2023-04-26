@@ -13,6 +13,6 @@ const SignupPage: BlitzPage = () => {
   )
 }
 
-SignupPage.redirectAuthenticatedTo = Routes.Home()
+SignupPage.redirectAuthenticatedTo = Routes.EventsPage()
 
 export default SignupPage

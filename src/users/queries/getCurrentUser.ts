@@ -17,6 +17,7 @@ const getCurrentUser = async (_ = null, { session }: Ctx) => {
       enrollments: true,
       companyId: true,
       company: true,
+      requests: true,
     },
   })
 

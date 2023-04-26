@@ -58,7 +58,7 @@ const CourseInfoCard = ({ course }: { course: ExtendedCourse }) => {
   return (
     <Paper pos="sticky" h="fit-content" top="calc(2rem + var(--mantine-header-height))">
       <Image
-        src="https://lenskrayon.ru/images/news/2021-05-25_Poezd/Photo.jpg"
+        src="https://matchboxbootcamp.com/assets/frontend/images/courseplaceholder.png"
         alt="course preview"
         fit="cover"
         h="100%"

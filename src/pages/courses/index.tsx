@@ -7,7 +7,7 @@ import CourseCard from "src/course/components/CourseCard"
 import { Suspense } from "react"
 
 const Courses = () => {
-  const [courses] = useQuery(getCourses, {})
+  const [courses] = useQuery(getCourses, { include: { tags: { include: { tag: true } } } })
 
   return (
     <SimpleGrid cols={4} spacing={40}>

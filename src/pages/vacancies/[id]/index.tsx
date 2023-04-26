@@ -5,6 +5,8 @@ import { GetServerSideProps } from "next"
 import { ExtendedVacancy } from "src/vacancy/components/VacancyCard"
 import { Group, Stack, Title, Text, Button, Grid } from "@mantine/core"
 import CompanyCard from "src/company/components/CompanyCard"
+import CreateRequestButton from "src/vacancy/components/CreateRequestButton"
+import { Suspense } from "react"
 
 const VacancyPage: BlitzPage = ({ vacancy }: { vacancy: ExtendedVacancy }) => {
   return (
@@ -18,17 +20,16 @@ const VacancyPage: BlitzPage = ({ vacancy }: { vacancy: ExtendedVacancy }) => {
             <Text size="xl" mb="xs">
               {vacancy.salary} ₽
             </Text>
-            <Text>Стажировка</Text>
-            <Text>Полная занятость</Text>
-            <Text>Удаленная работа</Text>
-            <Button mt="xl">Откликнуться</Button>
+            <div dangerouslySetInnerHTML={{ __html: vacancy.description || "" }} />
+            <Suspense>
+              <CreateRequestButton vacancy={vacancy} />
+            </Suspense>
           </Stack>
         </Grid.Col>
         <Grid.Col span={3}>
           <CompanyCard company={vacancy.company} />
         </Grid.Col>
       </Grid>
-      <div dangerouslySetInnerHTML={{ __html: vacancy.description || "" }} />
     </Layout>
   )
 }

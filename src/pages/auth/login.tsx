@@ -18,6 +18,6 @@ const LoginPage: BlitzPage = () => {
   )
 }
 
-LoginPage.redirectAuthenticatedTo = Routes.Home()
+LoginPage.redirectAuthenticatedTo = Routes.EventsPage()
 
 export default LoginPage
