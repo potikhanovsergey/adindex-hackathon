@@ -29,7 +29,8 @@ const HeaderProfile = () => {
     <Menu withinPortal>
       <Menu.Target>
         <Avatar alt="Avatar" color="dark" variant="outline" sx={{ cursor: "pointer" }}>
-          {user.firstName[0]} {user.lastName[0]}
+          {user.firstName[0]}
+          {user.lastName[0]}
         </Avatar>
       </Menu.Target>
 
@@ -53,7 +54,7 @@ const HeaderProfile = () => {
 
         {user.role === "RECRUITER" && (
           <>
-            <Menu.Item component={Link} href={Routes.ManageUsersPage()}>
+            <Menu.Item component={Link} href={Routes.CompanyInfoPage({ id: user.companyId })}>
               Профиль компании
             </Menu.Item>
             <Menu.Divider />

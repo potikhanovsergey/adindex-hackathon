@@ -256,6 +256,7 @@ const BubbleTheme: MantineThemeOverride = {
     Header: {
       styles: (theme) => ({
         root: {
+          zIndex: 201,
           borderBottom: `${rem(2)} solid ${theme.black}`,
           background: theme.fn.rgba(theme.white, 0.7),
           backdropFilter: "blur(12px)",
@@ -263,6 +264,9 @@ const BubbleTheme: MantineThemeOverride = {
       }),
     },
     Menu: {
+      defaultProps: {
+        withinPortal: true,
+      },
       styles: (theme) => ({
         dropdown: {
           border: `${rem(2)} solid ${theme.black}`,
