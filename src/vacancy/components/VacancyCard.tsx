@@ -1,5 +1,7 @@
+import { Routes } from "@blitzjs/next"
 import { Text, Paper, Button, Group, Avatar } from "@mantine/core"
 import { Company, Vacancy } from "@prisma/client"
+import Link from "src/core/Link"
 
 export interface ExtendedVacancy extends Vacancy {
   company: Company
@@ -14,7 +16,9 @@ const VacancyCard = ({
 }) => {
   return (
     <Paper p="sm">
-      <Text weight="bold">{vacancy.title}</Text>
+      <Link href={Routes.VacancyPage({ id: vacancy.id })} target="_blank" mb={4}>
+        <Text weight="bold">{vacancy.title}</Text>
+      </Link>
       <Text size="lg" mb="xs">
         {vacancy.salary} ₽
       </Text>
