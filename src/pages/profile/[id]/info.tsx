@@ -10,15 +10,15 @@ import { Role } from "db"
 
 const ProfileInfoPage: BlitzPage = ({ user }: { user: User }) => {
   const fullName = user
-    ? [user.firstName, user.lastName, user.patronymic].filter(Boolean).join(" ")
+    ? [user.lastName, user.firstName, user.patronymic].filter(Boolean).join(" ")
     : null
 
   return (
     <ProfileLayout>
-      <Group mb="md">
+      <Group mb="md" align="flex-start">
         <Avatar size="xl">{user.firstName.substring(0, 1) + user.lastName.substring(0, 1)}</Avatar>
         <Stack spacing={0} align="flex-start">
-          <Text size={36} weight="bold">
+          <Text size={32} weight="bold">
             {fullName}
           </Text>
           {(user.role === Role.ADMIN || user.role === Role.RECRUITER) && (
