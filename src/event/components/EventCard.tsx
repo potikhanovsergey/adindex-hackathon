@@ -1,12 +1,10 @@
-import { Paper, Stack, Button, Image, Text, AspectRatio } from "@mantine/core"
-import { Event } from "@prisma/client"
+import { Paper, Stack, Button, Image, Text, AspectRatio, Group, Badge } from "@mantine/core"
 import dayjs from "dayjs"
 import { supabase } from "lib/supabase"
 import { useRouter } from "next/router"
+import { ExtendedEvent } from "../types"
 
-const EventCard = ({ event }: { event: Event }) => {
-  const router = useRouter()
-
+const EventCard = ({ event }: { event: ExtendedEvent }) => {
   return (
     <Paper p={0} display="flex" sx={{ flexDirection: "column" }}>
       <AspectRatio ratio={16 / 9}>
@@ -22,9 +20,16 @@ const EventCard = ({ event }: { event: Event }) => {
       </AspectRatio>
 
       <Stack p="sm" spacing={0}>
-        <Text weight="bold" mb="sm">
-          {event.name}
-        </Text>
+        <Group mb="sm">
+          <Text weight="bold">{event.name}</Text>
+
+          {event.tags.map((tag) => (
+            <Badge key={tag.tagId}>
+              {tag.tag.name} {tag.power}
+            </Badge>
+          ))}
+        </Group>
+
         <Text>
           {dayjs(event.startDate).format("DD/MM/YYYY")} -{" "}
           {dayjs(event.endDate).format("DD/MM/YYYY")}
