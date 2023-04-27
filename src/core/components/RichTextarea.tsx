@@ -27,81 +27,39 @@ const RichTextarea: FC<RichTextareaProps> = ({ editor }) => {
     <RichTextEditor editor={editor}>
       <RichTextEditor.Toolbar sticky stickyOffset={60}>
         <RichTextEditor.ControlsGroup>
-          <Tooltip label="Жирный">
-            <RichTextEditor.Bold />
-          </Tooltip>
-          <Tooltip label="Курсив">
-            <RichTextEditor.Italic />
-          </Tooltip>
-          <Tooltip label="Подчёкрнутый">
-            <RichTextEditor.Underline />
-          </Tooltip>
-          <Tooltip label="Зачеркнутый">
-            <RichTextEditor.Strikethrough />
-          </Tooltip>
-          <Tooltip label="Очистить форматирование">
-            <RichTextEditor.ClearFormatting />
-          </Tooltip>
-          <Tooltip label="Выделить цветом">
-            <RichTextEditor.Highlight />
-          </Tooltip>
-          <Tooltip label="Код">
-            <RichTextEditor.Code />
-          </Tooltip>
+          <RichTextEditor.Bold />
+          <RichTextEditor.Italic />
+          <RichTextEditor.Underline />
+          <RichTextEditor.Strikethrough />
+          <RichTextEditor.ClearFormatting />
+          <RichTextEditor.Highlight />
+          <RichTextEditor.Code />
         </RichTextEditor.ControlsGroup>
 
         <RichTextEditor.ControlsGroup>
-          <Tooltip label="Заголовок 1">
-            <RichTextEditor.H1 />
-          </Tooltip>
-          <Tooltip label="Заголовок 2">
-            <RichTextEditor.H2 />
-          </Tooltip>
-          <Tooltip label="Заголовок 3">
-            <RichTextEditor.H3 />
-          </Tooltip>
-          <Tooltip label="Заголовок 4">
-            <RichTextEditor.H4 />
-          </Tooltip>
+          <RichTextEditor.H1 />
+          <RichTextEditor.H2 />
+          <RichTextEditor.H3 />
+          <RichTextEditor.H4 />
         </RichTextEditor.ControlsGroup>
 
         <RichTextEditor.ControlsGroup>
-          <Tooltip label="Цитата">
-            <RichTextEditor.Blockquote />
-          </Tooltip>
-          <Tooltip label="Разделитель">
-            <RichTextEditor.Hr />
-          </Tooltip>
-          <Tooltip label="Маркеры">
-            <RichTextEditor.BulletList />
-          </Tooltip>
-          <Tooltip label="Нумерация">
-            <RichTextEditor.OrderedList />
-          </Tooltip>
+          <RichTextEditor.Blockquote />
+          <RichTextEditor.Hr />
+          <RichTextEditor.BulletList />
+          <RichTextEditor.OrderedList />
         </RichTextEditor.ControlsGroup>
 
         <RichTextEditor.ControlsGroup>
-          <Tooltip label="Добавить ссылку">
-            <RichTextEditor.Link />
-          </Tooltip>
-          <Tooltip label="Удалить ссылку">
-            <RichTextEditor.Unlink />
-          </Tooltip>
+          <RichTextEditor.Link />
+          <RichTextEditor.Unlink />
         </RichTextEditor.ControlsGroup>
 
         <RichTextEditor.ControlsGroup>
-          <Tooltip label="Выровнять по левому краю">
-            <RichTextEditor.AlignLeft />
-          </Tooltip>
-          <Tooltip label="Выровнять по центру">
-            <RichTextEditor.AlignCenter />
-          </Tooltip>
-          <Tooltip label="Выровнять по ширине">
-            <RichTextEditor.AlignJustify />
-          </Tooltip>
-          <Tooltip label="Выровнять по правому краю">
-            <RichTextEditor.AlignRight />
-          </Tooltip>
+          <RichTextEditor.AlignLeft />
+          <RichTextEditor.AlignCenter />
+          <RichTextEditor.AlignJustify />
+          <RichTextEditor.AlignRight />
         </RichTextEditor.ControlsGroup>
       </RichTextEditor.Toolbar>
 
